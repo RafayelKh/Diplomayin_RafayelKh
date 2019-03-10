@@ -1,0 +1,17 @@
+    // TODO: Ajax-ov kazmakerpel cart-i mijic product-i jnjely
+
+    // TODO: Uxxel sax nkarnery
+
+////// TODO: Shop.php-i mej sartirovka sarqel
+
+    // TODO: Catalog-ov bdi bace miam ej vori mej bdi exnin categorianery, voronq piti tanen shop.php sartirovka erac tvyal categorian
+
+    // TODO: Sarqel minchev verj About-i ejy
+
+    // TODO: kazmakerpel UrlManager-y
+
+////// TODO: Sarqel tvyal Useri profile-y
+
+    // TODO: SubCategorianer avelacnel (AliExpress-i pes)
+ 
+    // TODO: 
