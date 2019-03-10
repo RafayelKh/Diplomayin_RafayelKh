@@ -44,7 +44,7 @@
                       </div>
                     </td>
                     <td>$<?= $row['price'] * $cart[0]['qty'] ?></td>
-                    <td><a href="" class="btn btn-primary btn-sm">X</a></td>
+                    <td><a id="remove_item" class="btn btn-primary btn-sm">X</a></td>
                   </tr>
 
                   <?php }; ?>

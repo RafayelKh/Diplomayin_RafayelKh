@@ -45,12 +45,12 @@
                     <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
                   </figure>
                   <div class="block-4-text p-4">
-                    <h3><a href="index.php?r=products/product"><?= $item['title'] ?></a></h3>
+                    <h3><a href="product/<?= $item['id'] ?>"><?= $item['title'] ?></a></h3>
                     <p class="mb-0">Finding perfect t-shirt</p>
                     <p class="text-primary font-weight-bold">$<?= $item['price'] ?></p>
                   </div>
                 </div>
-              </div>
+            </div>
 
         <?php }
 

@@ -11,6 +11,20 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'product' => [
+            'class' => 'frontend\modules\product\Module',
+        ],
+        'blog' => [
+            'class' => 'frontend\modules\blog\Module'
+        ],
+        'cart' => [
+            'class' => 'frontend\modules\cart\Module'
+        ],
+        'user' => [
+            'class' => 'frontend\modules\user\Module',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -41,8 +55,12 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                "blog/<id>" => 'blog/article',
-                "blog/<id>/add" => 'blog/add'
+                'cart/' => 'cart/cart/index',
+                'blog/' => 'blog/blog/index',
+                "blog/<id>" => 'blog/blog/article',
+                "blog/<id>/add" => 'blog/add',
+                'products/index' => 'product/products/index',
+                'products/product/<id:\d+>' => 'product/products/product'
             ],
         ],
 

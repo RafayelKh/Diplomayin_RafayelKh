@@ -39,7 +39,7 @@
             </div>
 
             </div>
-            <p><a href="index.php?r=cart" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
+            <p><a href="cart/" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
 
           </div>
         </div>

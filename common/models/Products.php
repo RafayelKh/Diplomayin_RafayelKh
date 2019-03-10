@@ -2,6 +2,9 @@
 
 namespace common\models;
 
+use common\models\Cart;
+use common\models\Image;
+use frontend\modules\product\models\Reviews;
 use Yii;
 
 /**
@@ -13,8 +16,8 @@ use Yii;
  * @property string $slug
  * @property int $cat_id
  * @property int $brand_id
- * @property int $price
- * @property int $sale_price
+ * @property float $price
+ * @property float $sale_price
  * @property int $is_new
  * @property int $is_featured
  * @property int $stock
@@ -24,8 +27,10 @@ use Yii;
  * @property Brand $brand
  * @property Categories $cat
  * @property Reviews[] $reviews
+ * @property Variants[] $variants
  */
-class Product extends \yii\db\ActiveRecord
+
+class Products extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -41,9 +46,10 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description', 'slug', 'cat_id', 'brand_id', 'price', 'sale_price', 'is_new', 'is_featured', 'stock'], 'required'],
+            [['title', 'slug', 'cat_id', 'brand_id', 'price', 'stock'], 'required'],
             [['description'], 'string'],
-            [['cat_id', 'brand_id', 'price', 'sale_price', 'is_new', 'is_featured', 'stock'], 'integer'],
+            [['cat_id', 'brand_id', 'is_new', 'is_featured', 'stock'], 'integer'],
+            [['price', 'sale_price'], 'double'],
             [['title', 'slug'], 'string', 'max' => 255],
             [['brand_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['brand_id' => 'id']],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['cat_id' => 'id']],
@@ -108,5 +114,13 @@ class Product extends \yii\db\ActiveRecord
     public function getReviews()
     {
         return $this->hasMany(Reviews::className(), ['prod_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVariants()
+    {
+        return $this->hasMany(Variants::className(), ['prod_id' => 'id']);
     }
 }

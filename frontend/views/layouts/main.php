@@ -40,7 +40,7 @@ AppAsset::register($this);
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Blog', 'url' => ['/blog']],
         ['label' => 'Shop', 'url' => ['/products/index']],
-        ['label' => 'Cart', 'url' => ['/cart/index']],
+        ['label' => 'Cart', 'url' => ['/cart']],
         ['label' => 'Catalogue', 'url' => ['/products/index']],
         ['label' => 'New Arrivals', 'url' => ['/products/index']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
@@ -51,10 +51,12 @@ AppAsset::register($this);
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
+            . Html::submitButton('Logout',['class' => 'navbar-inverse navbar-fixed-top'])
+            . Html::endForm()
+            . '</li>';
+        $menuItems[] = '<li>'
+            . Html::beginForm(['/user/user/index'], 'post')
+            . Html::submitButton('Profile (' . Yii::$app->user->identity->username . ')',['class' => 'btn btn-link'])
             . Html::endForm()
             . '</li>';
     }

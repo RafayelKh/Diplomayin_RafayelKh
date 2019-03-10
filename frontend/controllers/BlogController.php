@@ -6,13 +6,13 @@
  * Time: 7:50 PM
  */
 
-namespace frontend\controllers;
+namespace frontend\modules\blog\controllers;
 
 use Yii;
 use yii\web\Controller;
-use common\models\Articles;
-use common\models\Comments;
-use common\models\Users;
+use frontend\modules\blog\models\Articles;
+use frontend\modules\blog\models\Comments;
+use frontend\modules\blog\models\Users;
 
 class BlogController extends Controller
 {
@@ -47,6 +47,7 @@ class BlogController extends Controller
             $add->title = $get_post->post('title');
             $add->content = $get_post->post('content');
             $add->save();
+            
         };
 
         return $this->refresh();
