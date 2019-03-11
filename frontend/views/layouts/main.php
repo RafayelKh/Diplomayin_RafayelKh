@@ -42,7 +42,6 @@ AppAsset::register($this);
         ['label' => 'Shop', 'url' => ['/products/index']],
         ['label' => 'Cart', 'url' => ['/cart']],
         ['label' => 'Catalogue', 'url' => ['/products/index']],
-        ['label' => 'New Arrivals', 'url' => ['/products/index']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
@@ -55,9 +54,9 @@ AppAsset::register($this);
             . Html::endForm()
             . '</li>';
         $menuItems[] = '<li>'
-            . Html::beginForm(['/user/user/index'], 'post')
-            . Html::submitButton('Profile (' . Yii::$app->user->identity->username . ')',['class' => 'btn btn-link'])
-            . Html::endForm()
+//            . Html::beginForm(['/user_profile'], 'post')
+//            . Html::submitButton('Profile (' . Yii::$app->user->identity->username . ')',['class' => 'btn btn-link'])
+//            . Html::endForm()
             . '</li>';
     }
     echo Nav::widget([

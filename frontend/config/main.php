@@ -56,11 +56,13 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'cart/' => 'cart/cart/index',
+                'products/product/cart' => 'product/products/index',
                 'blog/' => 'blog/blog/index',
                 "blog/<id>" => 'blog/blog/article',
                 "blog/<id>/add" => 'blog/add',
                 'products/index' => 'product/products/index',
-                'products/product/<id:\d+>' => 'product/products/product'
+                'products/product/<id:\d+>' => 'product/products/product',
+                'user' => 'user/user/index'
             ],
         ],
 

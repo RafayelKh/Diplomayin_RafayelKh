@@ -22,8 +22,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($prod as $row){ ?>
-
+                <?php if (!empty($mes)){
+                    echo "<h1>$mes</h1>";
+                    return true;
+                } ?>
+                <?php if (!empty($prods)){
+                    foreach ($prods as $row){
+                ?>
                   <tr>
                     <td class="product-thumbnail">
                       <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
@@ -47,7 +52,8 @@
                     <td><a id="remove_item" class="btn btn-primary btn-sm">X</a></td>
                   </tr>
 
-                  <?php }; ?>
+                    <?php };
+                  }; ?>
 
                   </tbody>
               </table>

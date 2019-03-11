@@ -7,7 +7,7 @@ use yii\web\Controller;
 /**
  * Default controller for the `user` module
  */
-class DefaultController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Renders the index view for the module
