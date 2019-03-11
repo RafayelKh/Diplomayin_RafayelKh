@@ -16,6 +16,9 @@ class CartController extends Controller
     public function actionIndex()
     {
         $cart_prods = Cart::find()->where(['user_id' => Yii::$app->user->id])->asArray()->all();
+         echo "<pre>";
+         var_dump($cart_prods);
+         die;
         $prods = Products::find()->where(['id' => $cart_prods[0]['prod_id']])->asArray()->all();
         // echo "<pre>";
         // var_dump($cart_prods);
