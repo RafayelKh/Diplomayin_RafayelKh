@@ -9,7 +9,11 @@ use Yii;
  *
  * @property int $id
  * @property string $title
- * @property string $description
+ * @property string $content
+ * @property string $created_at
+ * @property string $photo
+ *
+ * @property Comments[] $comments
  */
 class Articles extends \yii\db\ActiveRecord
 {
@@ -27,9 +31,11 @@ class Articles extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description'], 'required'],
-            [['description'], 'string'],
+            [['title', 'content'], 'required'],
+            [['content'], 'string'],
+            [['created_at'], 'safe'],
             [['title'], 'string', 'max' => 255],
+            [['photo'], 'string', 'max' => 120],
         ];
     }
 
@@ -41,7 +47,17 @@ class Articles extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Title',
-            'description' => 'Description',
+            'content' => 'Content',
+            'created_at' => 'Created At',
+            'photo' => 'Photo',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getComments()
+    {
+        return $this->hasMany(Comments::className(), ['article_id' => 'id']);
     }
 }
