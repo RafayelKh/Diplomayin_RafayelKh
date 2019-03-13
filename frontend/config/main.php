@@ -56,6 +56,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'cart/' => 'cart/cart/index',
+                'cart/cart/<id:\d+>' => 'cart/cart/add',
                 'products/product/cart' => 'product/products/index',
                 'blog/' => 'blog/blog/index',
                 "blog/<id>" => 'blog/blog/article',

@@ -2,7 +2,9 @@
 
 namespace common\models;
 
+use frontend\modules\product\models\Reviews;
 use Yii;
+
 
 /**
  * This is the model class for table "product".
@@ -93,7 +95,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getBrand()
     {
-        return $this->hasOne(Brand::className(), ['id' => 'brand_id']);
+        return $this->hasOne(\frontend\modules\product\models\Brand::className(), ['id' => 'brand_id']);
     }
 
     /**
@@ -101,7 +103,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getCat()
     {
-        return $this->hasOne(Categories::className(), ['id' => 'cat_id']);
+        return $this->hasOne(\frontend\modules\product\models\Categories::className(), ['id' => 'cat_id']);
     }
 
     /**

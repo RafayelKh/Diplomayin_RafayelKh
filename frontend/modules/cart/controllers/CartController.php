@@ -38,9 +38,24 @@ class CartController extends Controller
         }
     }
 
-    public function actionAdd()
+    public function actionAdd($id)
     {
-
+        if(!Yii::$app->user->isGuest){
+            $cart = new Cart();
+            $cart->prod_id = $id;
+            $cart->user_id = Yii::$app->user->id;
+            //add qty
+             $cart->save();
+        }else{
+            $cookie = Yii::$app->getRequest()->getCookies();
+            if (!empty($cookie)){
+                $cart = new Cart();
+//               $cart->prod_id = $id;
+//               $cart->user_id = Yii::$app->user->id;
+//               add qty
+                $cart->save();
+            }
+        }
     }
 
 }
