@@ -27,45 +27,82 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Blog', 'url' => ['/blog']],
-        ['label' => 'Shop', 'url' => ['/products/index']],
-        ['label' => 'Cart', 'url' => ['/cart']],
-        ['label' => 'Catalogue', 'url' => ['/products/index']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton('Logout',['class' => 'navbar-inverse navbar-fixed-top'])
-            . Html::endForm()
-            . '</li>';
-        $menuItems[] = '<li>'
+    <header class="site-navbar" role="banner">
+        <div class="site-navbar-top">
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+                        <form action="" class="site-block-top-search">
+                            <span class="icon icon-search2"></span>
+                            <form action="">
+                               <input type="text" class="form-control border-0" placeholder="Search">
+                                <button class="menu_search_button"><img style="width: 12px;" src="images/search.png" alt=""></button>
+                            </form>
+                        </form>
+                    </div>
+
+                    <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+                        <div class="site-logo">
+                            <a href="/Diplomayin_RafayelKh/frontend/web/" class="js-logo-clone">Shoppers</a>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+                        <div class="site-top-icons">
+                            <ul>
+                                <li><a href="#"><span class="icon icon-person"></span></a></li>
+                                <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
+                                <li>
+                                    <a href="cart" class="site-cart">
+                                        <span class="icon icon-shopping_cart"></span>
+                                        <span class="count">2</span>
+                                    </a>
+                                </li>
+                                <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <nav class="site-navigation text-right text-md-center" role="navigation">
+            <div class="container">
+                <ul class="site-menu js-clone-nav d-none d-md-block">
+                    <?php
+                    if (Yii::$app->user->isGuest) {
+                        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+                        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+                    } else {
+                        $menuItems[] = '<li>'
+                            . Html::beginForm(['/site/logout'], 'post')
+                            . Html::submitButton('Logout',['class' => 'navbar-inverse navbar-fixed-top'])
+                            . Html::endForm()
+                            . '</li>';
+                        $menuItems[] = '<li>'
 //            . Html::beginForm(['/user_profile'], 'post')
 //            . Html::submitButton('Profile (' . Yii::$app->user->identity->username . ')',['class' => 'btn btn-link'])
 //            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'site-navigation text-right text-md-center'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
+                            . '</li>';
+                    }
+                    $menuItems = [
+                        ['label' => 'Home', 'url' => ['/']],
+                        ['label' => 'About', 'url' => ['/about-us']],
+                        ['label' => 'Contact', 'url' => ['/contact']],
+                        ['label' => 'Cart', 'url' => ['/cart']],
+                        ['label' => 'Shop', 'url' => ['/products']],
+                    ];
 
+                    echo Nav::widget([
+                        'options' => ['class' => 'site-navigation text-right text-md-center'],
+                        'items' => $menuItems,
+                    ]);
+                    ?>
+                </ul>
+            </div>
+        </nav>
+    </header>
     <div class="container">
         <?= $content ?>
     </div>
@@ -83,15 +120,14 @@ AppAsset::register($this);
               </div>
               <div class="col-md-6 col-lg-4">
                 <ul class="list-unstyled">
-                  <li><a href="#">Sell online</a></li>
+                  <li><a href="/products">Sell online</a></li>
                   <li><a href="#">Features</a></li>
-                  <li><a href="#">Shopping cart</a></li>
-                  <li><a href="#">Store builder</a></li>
+                  <li><a href="/cart">Shopping cart</a></li>
                 </ul>
               </div>
               <div class="col-md-6 col-lg-4">
                 <ul class="list-unstyled">
-                  <li><a href="#">Mobile commerce</a></li>
+                  <li><a href="contact">Contact Us</a></li>
                   <li><a href="#">Dropshipping</a></li>
                   <li><a href="#">Website development</a></li>
                 </ul>
@@ -99,8 +135,8 @@ AppAsset::register($this);
               <div class="col-md-6 col-lg-4">
                 <ul class="list-unstyled">
                   <li><a href="#">Point of sale</a></li>
-                  <li><a href="#">Hardware</a></li>
-                  <li><a href="#">Software</a></li>
+                  <li><a href="">Hardware</a></li>
+                  <li><a href="/about-us">Software</a></li>
                 </ul>
               </div>
             </div>

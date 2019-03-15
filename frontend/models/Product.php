@@ -18,6 +18,7 @@ use Yii;
  * @property int $is_new
  * @property int $is_featured
  * @property int $stock
+ * @property string $image
  *
  * @property Cart[] $carts
  * @property Image[] $images
@@ -62,13 +63,14 @@ class Product extends \yii\db\ActiveRecord
             'title' => 'Title',
             'description' => 'Description',
             'slug' => 'Slug',
-            'cat_id' => 'Cat ID',
-            'brand_id' => 'Brand ID',
+            'cat_id' => 'Category',
+            'brand_id' => 'Brand',
             'price' => 'Price',
             'sale_price' => 'Sale Price',
             'is_new' => 'Is New',
             'is_featured' => 'Is Featured',
             'stock' => 'Stock',
+            'image' => 'Image',
         ];
     }
 

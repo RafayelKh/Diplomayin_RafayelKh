@@ -55,6 +55,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'about-us' => 'site/about',
+                'contact' => 'site/contact',
                 'cart/' => 'cart/cart/index',
                 'cart/cart/<id:\d+>' => 'cart/cart/add',
                 'products/product/cart' => 'product/products/index',
