@@ -8,6 +8,9 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\Product;
+use frontend\modules\product\models\Brand;
+use frontend\modules\product\models\Categories;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -72,7 +75,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $prods = Product::find()->orderBy(['date_upload' => SORT_DESC])->asArray()->all();
+        return $this->render('index', ['prods' => $prods]);
     }
 
     public function actionCheckout()

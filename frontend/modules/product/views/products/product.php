@@ -58,11 +58,10 @@
                 <div class="nonloop-block-3 owl-carousel">
                 <?php foreach ($foreach as $item){ ?>
 
-
                 <div class="item">
                   <div class="block-4 text-center">
                     <figure class="block-4-image">
-                      <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
+                      <img src="<?= \yii\helpers\Url::to('@web') ?>images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
                     </figure>
                     <div class="block-4-text p-4">
                       <h3><a href="index.php?r=products/product"><?= $item['title'] ?></a></h3>
@@ -71,7 +70,6 @@
                     </div>
                   </div>
                 </div>
-
 
                 <?php }; ?>
                 </div>

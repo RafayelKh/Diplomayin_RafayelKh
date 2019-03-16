@@ -4,7 +4,8 @@
 
 $this->title = 'Shoppers';
 
-//echo yii\helpers\Url::to('@web').'/images/hero_1.jpg';
+//echo '<pre>';
+//var_dump($prods);
 //die;
 
 ?>
@@ -102,72 +103,39 @@ $this->title = 'Shoppers';
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7 site-section-heading text-center pt-4">
-            <h2>Featured Products</h2>
+            <h2>Newest Products</h2>
+              <h4>Swipe for more  -></h4>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
             <div class="nonloop-block-3 owl-carousel">
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Tank Top</a></h3>
-                    <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid">
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Polo Shirt</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/cloth_3.jpg" alt="Image placeholder" class="img-fluid">
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">T-Shirt Mockup</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
+               <?php
+               if (!empty($prods)) {
+                   foreach ($prods as $item) {
+                       ?>
+                       <div class="item">
+                           <div class="block-4 text-center">
+                               <figure class="block-4-image">
+                                   <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
+                               </figure>
+                               <div class="block-4-text p-4">
+                                   <h3><a href="<?= \yii\helpers\Url::to('@web') ?>/shop/<?= $item['id'] ?>"><?= $item['title'] ?></a></h3>
+                                   <h5 class="mb-0"><?= $item['description'] ?></h5>
+                                   <?php
+                                   if (!empty($item['sale_price'])){
+                                       ?>
+                                           <span style="text-decoration: line-through" class="text-primary font-weight-bold"><?= $item['price'] ?> $</span>
+                                           <h3 class="text-primary font-weight-bold"><?= $item['sale_price'] ?> $</h3>
+                                       <?php
+                                   }
+                                   ?>
+
+                               </div>
+                           </div>
+                       </div>
+                   <?php }
+               }?>
             </div>
           </div>
         </div>

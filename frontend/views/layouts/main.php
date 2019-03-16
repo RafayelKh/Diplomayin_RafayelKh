@@ -19,6 +19,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -37,7 +38,7 @@ AppAsset::register($this);
                             <span class="icon icon-search2"></span>
                             <form action="">
                                <input type="text" class="form-control border-0" placeholder="Search">
-                                <button class="menu_search_button"><img style="width: 12px;" src="images/search.png" alt=""></button>
+                                <button class="menu_search_button"><img style="width: 12px;" alt=""><i class="fas fa-search search"></i></button>
                             </form>
                         </form>
                     </div>
@@ -91,7 +92,7 @@ AppAsset::register($this);
                         ['label' => 'About', 'url' => ['/about-us']],
                         ['label' => 'Contact', 'url' => ['/contact']],
                         ['label' => 'Cart', 'url' => ['/cart']],
-                        ['label' => 'Shop', 'url' => ['/products']],
+                        ['label' => 'Shop', 'url' => ['/shop']],
                     ];
 
                     echo Nav::widget([
@@ -120,23 +121,23 @@ AppAsset::register($this);
               </div>
               <div class="col-md-6 col-lg-4">
                 <ul class="list-unstyled">
-                  <li><a href="/products">Sell online</a></li>
-                  <li><a href="#">Features</a></li>
-                  <li><a href="/cart">Shopping cart</a></li>
+                  <li><a href="<?= \yii\helpers\Url::to('@web') ?>/shop">Sell online</a></li>
+                  <li><a href="<?= \yii\helpers\Url::to('@web') ?>/shop">Features</a></li>
+                  <li><a href="<?= \yii\helpers\Url::to('@web') ?>/cart">Shopping cart</a></li>
                 </ul>
               </div>
               <div class="col-md-6 col-lg-4">
                 <ul class="list-unstyled">
-                  <li><a href="contact">Contact Us</a></li>
-                  <li><a href="#">Dropshipping</a></li>
-                  <li><a href="#">Website development</a></li>
+                  <li><a href="<?= \yii\helpers\Url::to('@web') ?>contact">Contact Us</a></li>
+                  <li><a href="<?= \yii\helpers\Url::to('@web') ?>">Dropshipping</a></li>
+                  <li><a href="<?= \yii\helpers\Url::to('@web') ?>">Website development</a></li>
                 </ul>
               </div>
               <div class="col-md-6 col-lg-4">
                 <ul class="list-unstyled">
                   <li><a href="#">Point of sale</a></li>
                   <li><a href="">Hardware</a></li>
-                  <li><a href="/about-us">Software</a></li>
+                  <li><a href="<?= \yii\helpers\Url::to('@web') ?>/about-us">Software</a></li>
                 </ul>
               </div>
             </div>
