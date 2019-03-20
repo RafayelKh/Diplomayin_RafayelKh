@@ -19,7 +19,6 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -36,9 +35,9 @@ AppAsset::register($this);
                     <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
                         <form action="" class="site-block-top-search">
                             <span class="icon icon-search2"></span>
-                            <form action="">
-                               <input type="text" class="form-control border-0" placeholder="Search">
-                                <button class="menu_search_button"><img style="width: 12px;" alt=""><i class="fas fa-search search"></i></button>
+                            <form action="<?= \yii\helpers\Url::to('/shop') ?>">
+                               <input type="text" name="s" class="form-control border-0" placeholder="Search">
+                                <button class="menu_search_button">></button>
                             </form>
                         </form>
                     </div>
@@ -72,21 +71,7 @@ AppAsset::register($this);
             <div class="container">
                 <ul class="site-menu js-clone-nav d-none d-md-block">
                     <?php
-                    if (Yii::$app->user->isGuest) {
-                        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-                        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-                    } else {
-                        $menuItems[] = '<li>'
-                            . Html::beginForm(['/site/logout'], 'post')
-                            . Html::submitButton('Logout',['class' => 'navbar-inverse navbar-fixed-top'])
-                            . Html::endForm()
-                            . '</li>';
-                        $menuItems[] = '<li>'
-//            . Html::beginForm(['/user_profile'], 'post')
-//            . Html::submitButton('Profile (' . Yii::$app->user->identity->username . ')',['class' => 'btn btn-link'])
-//            . Html::endForm()
-                            . '</li>';
-                    }
+
                     $menuItems = [
                         ['label' => 'Home', 'url' => ['/']],
                         ['label' => 'About', 'url' => ['/about-us']],
@@ -94,7 +79,21 @@ AppAsset::register($this);
                         ['label' => 'Cart', 'url' => ['/cart']],
                         ['label' => 'Shop', 'url' => ['/shop']],
                     ];
-
+                    if (Yii::$app->user->isGuest) {
+                        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+                        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+                    } else {
+                        $menuItems[] = '<li>'
+                            . Html::beginForm(['/site/logout'], 'post')
+                            . Html::submitButton('Logout',['class' => 'navbar-inverse'])
+                            . Html::endForm()
+                            . '</li>';
+                        $menuItems[] = '<li>'
+                            // . Html::beginForm(['/user_profile'], 'post')
+                            // . Html::submitButton('Profile (' . Yii::$app->user->identity->username . ')',['class' => 'btn btn-link'])
+                            // . Html::endForm()
+                            . '</li>';
+                    }
                     echo Nav::widget([
                         'options' => ['class' => 'site-navigation text-right text-md-center'],
                         'items' => $menuItems,

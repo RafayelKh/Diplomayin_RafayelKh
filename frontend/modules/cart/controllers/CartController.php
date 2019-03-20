@@ -11,6 +11,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\Cookie;
 
 
 class CartController extends Controller
@@ -19,12 +20,9 @@ class CartController extends Controller
     {
         if (!(Yii::$app->user->isGuest)) {
             $prods = Cart::find()->with('prod')->where(['user_id' => Yii::$app->user->id])->asArray()->all();
-
-            // echo "<pre>";
-            // var_dump($cart_prods);
-            // var_dump($prods);
-            // die;
-
+            if (!empty($prods)){
+                return $this->render('index',['mes' => 'Cart is empty']);
+            }
             return $this->render('index', ['prods' => $prods]);
         }else{
             $cookie_prods = [];
@@ -37,25 +35,21 @@ class CartController extends Controller
             return $this->render('index', ['prods' => $cookie_prods]);
         }
     }
-
+/*
     public function actionAdd($id)
     {
         if(!Yii::$app->user->isGuest){
             $cart = new Cart();
             $cart->prod_id = $id;
-            $cart->user_id = Yii::$app->user->id;
+//            $cart->user_id = Yii::$app->user->id;
             //add qty
              $cart->save();
         }else{
-            $cookie = Yii::$app->getRequest()->getCookies();
-            if (!empty($cookie)){
-                $cart = new Cart();
-//               $cart->prod_id = $id;
-//               $cart->user_id = Yii::$app->user->id;
-//               add qty
-                $cart->save();
-            }
+            $cookie = Yii::$app->request->cookies;
+            $cookie->add(new Cookie([
+                'name' =>
+            ]));
         }
     }
-
+*/
 }

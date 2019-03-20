@@ -1,8 +1,8 @@
 <div class="site-section">
     <?php
-        // echo "<pre>";
-        //
-        // var_dump($product);
+         echo "<pre>";
+         var_dump($product);
+         die;
      ?>
       <div class="container">
         <div class="row">
@@ -39,7 +39,7 @@
             </div>
 
             </div>
-            <p><a href="cart/cart/<?= $product['id'] ?>" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
+            <p><a href="<?= \yii\helpers\Url::to('@web') ?>/cart/<?= $product['id'] ?>" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
 
           </div>
         </div>

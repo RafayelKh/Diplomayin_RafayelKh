@@ -10,15 +10,25 @@ use yii\widgets\ActiveForm;
 
 <div class="products-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
+    <?php
+    if(!empty($model->image)){
+        echo Html::img(\yii\helpers\Url::to('/php/shop1/frontend/web/images/products/'.$model->image),['width' => '80px']);
+    }
+    $images = $model->getImages()->asArray()->all();
+    if(!empty($images)){
+        foreach ($images as $image){
+            echo Html::img(\yii\helpers\Url::to('/php/shop1/frontend/web/images/products/'.$image['image']),['width' => '80px']);
+        }
+    }
+    ?>
 
-    <?= $form->field($model, 'image')->fileInput() ?>
+    <?= $form->field($model, 'image[]')->fileInput(['multiple' => 'multiple', 'accept' => 'image/*']) ?>
 
     <?= $form->field($model, 'cat_id')->dropDownList($categories,['prompt' => 'Choose category']) ?>
 

@@ -4,8 +4,8 @@ namespace common\models;
 
 use frontend\modules\product\models\Brand;
 use frontend\modules\product\models\Categories;
-use frontend\modules\product\models\Reviews;
 use Yii;
+use yii\behaviors\SluggableBehavior;
 
 /**
  * This is the model class for table "product".
@@ -21,6 +21,8 @@ use Yii;
  * @property int $is_new
  * @property int $is_featured
  * @property int $stock
+ * @property string $image
+ * @property string $date_upload
  *
  * @property Cart[] $carts
  * @property Image[] $images
@@ -39,6 +41,19 @@ class Product extends \yii\db\ActiveRecord
         return 'product';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'title',
+                'ensureUnique' => true,
+                'slugAttribute' => 'slug',
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -49,7 +64,8 @@ class Product extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['cat_id', 'brand_id', 'is_new', 'is_featured', 'stock'], 'integer'],
             [['price', 'sale_price'], 'number'],
-            [['title', 'slug'], 'string', 'max' => 255],
+            [['date_upload'], 'safe'],
+            [['title', 'slug', 'image'], 'string', 'max' => 255],
             [['brand_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['brand_id' => 'id']],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['cat_id' => 'id']],
         ];
@@ -72,6 +88,8 @@ class Product extends \yii\db\ActiveRecord
             'is_new' => 'Is New',
             'is_featured' => 'Is Featured',
             'stock' => 'Stock',
+            'image' => 'Image',
+            'date_upload' => 'Date Upload',
         ];
     }
 

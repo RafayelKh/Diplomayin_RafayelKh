@@ -26,6 +26,17 @@ class Reviews extends \yii\db\ActiveRecord
         return 'reviews';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'user_id',
+                'updatedByAttribute' => 'user_id',
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

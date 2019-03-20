@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\Image;
 use frontend\modules\product\models\Brand;
 use frontend\modules\product\models\Categories;
 use Yii;
@@ -11,6 +12,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProductController implements the CRUD actions for Products model.
@@ -74,9 +76,52 @@ class ProductController extends Controller
         $categories_ids = ArrayHelper::map($categories,'id','title');
         $brands_ids = ArrayHelper::map($brands,'id','title');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $imgFile = UploadedFile::getInstances($model, "image");
+
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try{
+            if ($model->load(Yii::$app->request->post())) {
+                $model->image = "";
+
+                if ($model->save()) {
+                    if (!empty($imgFile)) {
+                        $imgPath = Yii::getAlias('@frontend') . '/web/images/products/';
+
+                        if (count($imgFile) > 1) {
+                            foreach ($imgFile as $key => $img) {
+                                if ($key == 0) {
+                                    $result = $this->addImage($img, $imgPath, $model);
+                                } else {
+                                    $image_obj = new Image();
+                                    $image_obj->prod_id = $model->id;
+                                    $result = $this->addImage($img, $imgPath, $image_obj);
+                                }
+                            }
+                        } else {
+                            $result = $this->addImage($imgFile[0], $imgPath, $model);
+
+                            if (!$result) {
+                                $transaction->rollBack();
+                            }
+                        }
+                    }
+
+                    if($transaction->isActive){
+                        $transaction->commit();
+                    }
+
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $transaction->rollBack();
+                }
+            }else {
+                $transaction->rollBack();
+            }
+        }catch (\Exception $e){
+            $transaction->rollBack();
         }
+
 
         return $this->render('create', [
             'model' => $model,
@@ -100,8 +145,64 @@ class ProductController extends Controller
 
         $categories_ids = ArrayHelper::map($categories,'id','title');
         $brands_ids = ArrayHelper::map($brands,'id','title');
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $prod_img = $model->image;
+
+        $imgFile = UploadedFile::getInstances($model, "image");
+
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try{
+            if ($model->load(Yii::$app->request->post())) {
+                $model->image = $prod_img;
+
+                if ($model->save()) {
+
+                    if (!empty($imgFile)) {
+                        $imgPath = Yii::getAlias('@frontend') . '/web/images/products/';
+
+                        if (count($imgFile) > 1) {
+                            foreach ($imgFile as $key => $img) {
+                                if ($key == 0) {
+                                    $result = $this->addImage($img, $imgPath, $model);
+                                } else {
+                                    $image_obj = new Image();
+                                    $image_obj->prod_id = $model->id;
+                                    $result = $this->addImage($img, $imgPath, $image_obj);
+                                }
+                            }
+                        } else {
+                            $result = $this->addImage($imgFile[0], $imgPath, $model);
+
+                            if ($result) {
+                                if (!empty($prod_img)) {
+                                    if (file_exists($imgPath . $prod_img)) {
+                                        unlink($imgPath . $prod_img);
+                                    }
+                                }
+
+                            } else {
+                                $transaction->rollBack();
+                            }
+                        }
+
+                    } else {
+                        $model->image = $prod_img;
+                        $model->save(false);
+                    }
+
+                    if($transaction->isActive){
+                        $transaction->commit();
+                    }
+
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $transaction->rollBack();
+
+                }
+            }
+        }catch (\Exception $e){
+            $transaction->rollBack();
+            print_r($e->getMessage());
         }
 
         return $this->render('update', [
@@ -109,6 +210,19 @@ class ProductController extends Controller
             'categories' => $categories_ids,
             'brands' => $brands_ids
         ]);
+    }
+
+    private function addImage($imgFile,$imgPath,$model){
+        $image_name = Yii::$app->security->generateRandomString(). '.' . $imgFile->extension;
+
+        $path = $imgPath . $image_name;
+        if($imgFile->saveAs($path)){
+            $model->image = $image_name;
+            $model->save(false);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

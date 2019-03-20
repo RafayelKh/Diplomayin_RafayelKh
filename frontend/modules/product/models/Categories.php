@@ -14,7 +14,7 @@ use Yii;
  * @property string $slug
  *
  * @property BrandCat[] $brandCats
- * @property Products[] $products
+ * @property Product[] $products
  */
 class Categories extends \yii\db\ActiveRecord
 {
@@ -65,6 +65,6 @@ class Categories extends \yii\db\ActiveRecord
      */
     public function getProducts()
     {
-        return $this->hasMany(Products::className(), ['cat_id' => 'id']);
+        return $this->hasMany(Product::className(), ['cat_id' => 'id']);
     }
 }

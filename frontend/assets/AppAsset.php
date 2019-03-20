@@ -22,19 +22,20 @@ class AppAsset extends AssetBundle
         'css/style.css',
         'css/profile.css',
         'css/demo.css',
+        'https://use.fontawesome.com/releases/v5.7.2/css/all.css',
     ];
     public $js = [
-        'js/jquery-3.3.1.min.js',
+//        'js/jquery-3.3.1.min.js',
         'js/jquery-ui.js',
         'js/popper.min.js',
-        'js/bootstrap.min.js',
+//        'js/bootstrap.min.js',
         'js/owl.carousel.min.js',
         'js/jquery.magnific-popup.min.js',
         'js/aos.js',
         'js/main.js',
         'js/slick.min.js',
-        '//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
-        '//code.jquery.com/jquery-1.11.1.min.js',
+//        '//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
+//        '//code.jquery.com/jquery-1.11.1.min.js',
         'js/demo.js',
 
     ];
