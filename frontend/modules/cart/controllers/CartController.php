@@ -16,18 +16,33 @@ use yii\web\Cookie;
 
 class CartController extends Controller
 {
-    public function actionIndex()
+    public function actionIndex($id = 0,$remove_id = 0)
     {
-        if (!(Yii::$app->user->isGuest)) {
+        if (!empty($remove_id)){
+            $remove_item = Cart::find()->where(['prod_id' => $remove_id])->andWhere(['user_id' => Yii::$app->user->id])->one();
+            $remove_item->delete();
+        }
+        if(!Yii::$app->user->isGuest){
+            $id = intval($id);
+
+            $cart = new Cart();
+            $cart->prod_id = $id;
+            $cart->user_id = Yii::$app->user->id;
+            $cart->qty = 1;
+            $cart->save();
+
             $prods = Cart::find()->with('prod')->where(['user_id' => Yii::$app->user->id])->asArray()->all();
-            if (!empty($prods)){
+            if (empty($prods)){
                 return $this->render('index',['mes' => 'Cart is empty']);
             }
+
             return $this->render('index', ['prods' => $prods]);
-        }else{
+        }
+
+        else{
             $cookie_prods = [];
-            if (Yii::$app->getRequest()->getCookies()->has('cart_prods')) {
-                $cookie_prods = Yii::$app->getRequest()->getCookies()->has('cart_prods');
+            if (Yii::$app->request->cookies->has('cart_prods')) {
+                $cookie_prods = Yii::$app->request->cookies->get('cart_prods');
             }else{
                 return $this->render('index',['mes' => 'Cart is empty']);
             }
@@ -35,21 +50,5 @@ class CartController extends Controller
             return $this->render('index', ['prods' => $cookie_prods]);
         }
     }
-/*
-    public function actionAdd($id)
-    {
-        if(!Yii::$app->user->isGuest){
-            $cart = new Cart();
-            $cart->prod_id = $id;
-//            $cart->user_id = Yii::$app->user->id;
-            //add qty
-             $cart->save();
-        }else{
-            $cookie = Yii::$app->request->cookies;
-            $cookie->add(new Cookie([
-                'name' =>
-            ]));
-        }
-    }
-*/
+
 }

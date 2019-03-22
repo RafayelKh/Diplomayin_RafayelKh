@@ -76,7 +76,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $prods = Product::find()->orderBy(['date_upload' => SORT_DESC])->asArray()->all();
-        return $this->render('index', ['prods' => $prods]);
+        $categories = Categories::find()->limit(3)->asArray()->all();
+
+        return $this->render('index', ['prods' => $prods, 'categories' => $categories]);
     }
 
     public function actionCheckout()

@@ -47,9 +47,9 @@ class ProductsController extends Controller
         // var_dump($_GET);
 
         $one_product = Product::find()->where(['id' => $id])->asArray()->one();
-        $product = Product::find()->asArray()->all();
+        $product = Product::find()->limit(3)->asArray()->all();
 
-        return $this->render('product',['product' => $one_product,'foreach' => $product]);
+        return $this->render('product',['product' => $one_product,'products' => $product]);
     }
     public function actionCat($id){
 

@@ -53,12 +53,19 @@
                         <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                             <div class="block-4 text-center border">
                                 <figure class="block-4-image">
-                                    <a href="shop-single.html"><img
-                                                src="<?= \yii\helpers\Url::to('@web') ?>/images/cloth_1.jpg"
+                                    <?php if (!empty($item['image'])) { ?>
+                                    <a href="shop/prod/<?= $item['id'] ?>"><img
+                                                src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $item['image'] ?>"
                                                 alt="Image placeholder" class="img-fluid"></a>
+                                    <?php }else{ ?>
+                                        <a href="shop/prod/<?= $item['id'] ?>"><img
+                                                    src="<?= \yii\helpers\Url::to('@web') ?>/images/default.jpg"
+                                                    alt="Image placeholder" class="img-fluid">
+                                        </a>
+                                    <?php } ?>
                                 </figure>
                                 <div class="block-4-text p-4">
-                                    <h3><a href="product/prod/<?= $item['id'] ?>"><?= $item['title'] ?></a></h3>
+                                    <h3><a href="shop/prod/<?= $item['id'] ?>"><?= $item['title'] ?></a></h3>
                                     <p class="mb-0">Finding perfect t-shirt</p>
                                     <p class="text-primary font-weight-bold">$<?= $item['price'] ?></p>
                                 </div>
@@ -161,7 +168,7 @@
                                 <a class="block-2-item" href="#">
                                     <figure class="image">
                                         <img href="<?= \yii\helpers\Url::to('@web') ?>/shop/<?= $each['id'] ?>"
-                                             src="<?= \yii\helpers\Url::to('@web') ?>/images/women.jpg" alt=""
+                                             src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $each['image'] ?>" alt=""
                                              class="img-fluid">
                                     </figure>
                                     <div class="text">

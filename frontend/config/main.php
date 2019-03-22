@@ -57,8 +57,9 @@ return [
             'rules' => [
                 'about-us' => 'site/about',
                 'contact' => 'site/contact',
-                'cart/' => 'cart/cart/index',
-                'cart/<id>' => 'cart/cart/add',
+                'cart/' => 'cart/cart',
+                'cart/<id>' => 'cart/cart',
+                'cart/remove/<remove_id>' => 'cart/cart',
                 'shop' => 'product/products',
                 'shop/<cat_id>' => 'product/products',
                 'shop/prod/<id>' => 'product/products/product',

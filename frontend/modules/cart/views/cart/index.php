@@ -2,21 +2,21 @@
 // echo "<pre>";
 // var_dump($prods);
 // die;
+
+// echo "<pre>";
+// var_dump($cart);
+// die;
  ?>
     <div class="site-section">
       <div class="container">
         <div class="row mb-5">
           <form class="col-md-12" method="post">
             <div class="site-blocks-table">
-                <?php if (!empty($mes)){
-                    echo "<h1>$mes</h1>";
-                    return false;
-
-                }else{
-                if (!empty($prods)){
-                foreach ($prods as $row){
-
-                ?>
+              <?php if (!empty($mes)){
+                        echo "<h1>$mes</h1>";
+                        return false;
+                    }
+              ?>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
@@ -29,20 +29,33 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    if (!empty($prods)) {
+                    foreach ($prods as $row){
+// echo "<pre>";
+// var_dump($row);
+// die;
+                    \yii\widgets\Pjax::begin(['enablePushState' => false]);
+                    ?>
                     <tr>
                         <td class="product-thumbnail">
-                            <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
+                            <?php if (!empty($row['prod']['image'])) { ?>
+                                <img src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $row['prod']['image'] ?>" alt="Image" class="img-fluid">
+                            <?php }else{ ?>
+                                <img src="<?= \yii\helpers\Url::to('@web') ?>/images/default.jpg" alt="Image" class="img-fluid">
+                            <?php } ?>
+
                         </td>
                         <td class="product-name">
-                            <h2 class="h5 text-black"><?= $row['title'] ?></h2>
+                            <h2 class="mystyle text-black"><?= $row['prod']['title'] ?></h2>
                         </td>
-                        <td>$<?= $row['price'] ?></td>
+                        <td><h2>$<?= $row['prod']['price'] ?></h2></td>
                         <td>
                             <div class="input-group mb-3" style="max-width: 120px;">
                                 <div class="input-group-prepend">
                                     <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                                 </div>
-                                <input type="text" class="form-control text-center" value="<?= $cart[0]['qty'] ?>"
+                                <input type="text" class="form-control text-center" value="<?= $row['qty'] ?>"
                                        placeholder="" aria-label="Example text with button addon"
                                        aria-describedby="button-addon1">
                                 <div class="input-group-append">
@@ -50,13 +63,13 @@
                                 </div>
                             </div>
                         </td>
-                        <td>$<?= $row['price'] * $cart[0]['qty'] ?></td>
-                        <td><a id="remove_item" class="btn btn-primary btn-sm">X</a></td>
+                        <td><h2>$<?= $row['prod']['price'] * $row['qty'] ?></h2></td>
+                        <td><a href="<?= \yii\helpers\Url::to('@web') ?>/cart/remove/<?= $row['prod']['id'] ?>" id="remove_item" class="btn btn-primary btn-sm">X</a></td>
                     </tr>
-
-                    <?php };
+                    <?php
+                        \yii\widgets\Pjax::end();
+                            };
                         };
-                    }
                     ?>
 
                   </tbody>
@@ -65,16 +78,14 @@
           </form>
         </div>
 
-          <?php
-//          echo \yii\widgets\LinkPager::widget(['pagination' => $pagination]);
-
-          ?>
 
         <div class="row">
           <div class="col-md-6">
             <div class="row mb-5">
               <div class="col-md-6 mb-3 mb-md-0">
-                <button class="btn btn-primary btn-sm btn-block">Update Cart</button>
+                  <form action="<?= \yii\helpers\Url::to('@web') ?>/cart">
+                     <button class="btn btn-primary btn-sm btn-block">Update Cart</button>
+                  </form>
               </div>
               <div class="col-md-6">
                 <button class="btn btn-outline-primary btn-sm btn-block">Continue Shopping</button>

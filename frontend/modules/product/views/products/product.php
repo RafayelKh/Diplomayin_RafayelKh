@@ -1,13 +1,19 @@
 <div class="site-section">
     <?php
-         echo "<pre>";
-         var_dump($product);
-         die;
+//         echo "<pre>";
+//         var_dump($product);
+//         echo "<pre>";
+//         var_dump($products);
+//         die;
      ?>
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
+              <?php if (!empty($item['image'])){ ?>
+                  <img src="<?= \yii\helpers\Url::to('@web') ?>/images/cloth_1.jpg" alt="Image" class="img-fluid">
+              <?php }else{ ?>
+                  <img src="<?= \yii\helpers\Url::to('@web') ?>/images/default.jpg" alt="Image placeholder" class="img-fluid">
+              <?php } ?>
           </div>
           <div class="col-md-6">
             <h2 class="text-black"><?= $product['title'] ?></h2>
@@ -56,12 +62,16 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="nonloop-block-3 owl-carousel">
-                <?php foreach ($foreach as $item){ ?>
+                <?php foreach ($products as $item){ ?>
 
                 <div class="item">
                   <div class="block-4 text-center">
                     <figure class="block-4-image">
-                      <img src="<?= \yii\helpers\Url::to('@web') ?>images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
+                        <?php if (!empty($item['image'])){ ?>
+                             <img src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $item['image'] ?>" alt="Image placeholder" class="img-fluid">
+                        <?php }else{ ?>
+                            <img src="<?= \yii\helpers\Url::to('@web') ?>/images/default.jpg" alt="Image placeholder" class="img-fluid">
+                        <?php } ?>
                     </figure>
                     <div class="block-4-text p-4">
                       <h3><a href="index.php?r=products/product"><?= $item['title'] ?></a></h3>
