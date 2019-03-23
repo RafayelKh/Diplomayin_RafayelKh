@@ -12,6 +12,7 @@ use common\models\Product;
 use yii\widgets\Pjax;
 use frontend\modules\product\models\Categories;
 use frontend\modules\product\models\Brand;
+use frontend\modules\product\model\Prodcomment;
 
 /**
  *
@@ -48,28 +49,16 @@ class ProductsController extends Controller
 
         $one_product = Product::find()->where(['id' => $id])->asArray()->one();
         $product = Product::find()->limit(3)->asArray()->all();
+        $comments = Prodcomment::find()->where(['prod_id' => $id])->with(['user'])->asArray()->all();
 
-        return $this->render('product',['product' => $one_product,'products' => $product]);
+        
+        $model = new Prodcomment();
+        $model->user_id = \Yii::$app->user->id;
+        $model->prod_id = $id;
+        if($model->load(\Yii::$app->request->post()) && $model->save()){
+            return $this->refresh();
+        }
+
+        return $this->render('product',['product' => $one_product,'products' => $product,'comments' => $comments,'model' => $model]);
     }
-    public function actionCat($id){
-
-        $product = Product::find()->where(['cat_id' => $id])->asArray->all;
-
-//        $search = Yii::$app->request->get('s');
-//        $cat = Categories::find()->limit(3)->asArray()->all();
-//
-//        $pagination = new Pagination(['totalCount' => $product->count(),'pageSize' => 2]);
-//
-//        if (!empty($search)){
-//            $product = $product->where(['LIKE', 'title', $search]);
-//        }
-//
-//
-//        $product = $product->offset($pagination->offset)->limit($pagination->limit);
-//        $product = $product->asArray()->all();
-//
-//        return $this->render('index',['product' => $product,'cat' => $cat, 'pagination' => $pagination]);
-
-    }
-
 }

@@ -85,16 +85,7 @@ AppAsset::register($this);
                         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
                         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
                     } else {
-                        $menuItems[] = '<li>'
-                            . Html::beginForm(['/site/logout'], 'post')
-                            . Html::submitButton('Logout',['class' => 'navbar-inverse'])
-                            . Html::endForm()
-                            . '</li>';
-                        $menuItems[] = '<li>'
-                            // . Html::beginForm(['/user_profile'], 'post')
-                            // . Html::submitButton('Profile (' . Yii::$app->user->identity->username . ')',['class' => 'btn btn-link'])
-                            // . Html::endForm()
-                            . '</li>';
+                        $menuItems[] = ['label' => 'Logout','linkOptions' => ['data-method' => 'post'], 'url' => ['/site/logout',]];
                     }
                     echo Nav::widget([
                         'options' => ['class' => 'site-navigation text-right text-md-center'],
@@ -116,7 +107,7 @@ AppAsset::register($this);
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <div class="row">
+                <div style="font-size: 16px" class="row">
                     <div class="col-md-12">
                         <h3 class="footer-heading mb-4">Navigations</h3>
                     </div>
@@ -143,13 +134,13 @@ AppAsset::register($this);
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+            <div style="font-size: 16px" class="col-md-6 col-lg-3 mb-4 mb-lg-0">
                 <h3 class="footer-heading mb-4">Promo</h3>
                 <img src="<?= \yii\helpers\Url::to('@web') ?>/images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
                     <h3 class="font-weight-light  mb-0">Finding Your Perfect Shoes</h3>
                     <p>Promo from  nuary 15 &mdash; 25, 2019</p>
             </div>
-            <div class="col-md-6 col-lg-3">
+            <div style="font-size: 16px" class="col-md-6 col-lg-3">
                 <div class="block-5 mb-5">
                     <h3 class="footer-heading mb-4">Contact Info</h3>
                     <ul class="list-unstyled">
@@ -164,7 +155,7 @@ AppAsset::register($this);
                         <label for="email_subscribe" class="footer-heading">Subscribe</label>
                         <div class="form-group">
                             <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
-                            <input type="submit" class="btn btn-sm btn-primary" value="Send">
+                            <input type="submit" style="height: 43px;margin-top: 20px;" class="btn btn-sm btn-primary" value="Send">
                         </div>
                     </form>
                 </div>

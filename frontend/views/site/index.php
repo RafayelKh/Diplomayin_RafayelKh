@@ -17,7 +17,7 @@ $this->title = 'Shoppers';
             <div class="intro-text text-center text-md-left">
               <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer accumsan tincidunt fringilla. </p>
               <p>
-                <a href="#" class="btn btn-sm btn-primary">Shop Now</a>
+                <a href="<?= \yii\helpers\Url::to('@web') ?>/shop" class="btn btn-sm btn-primary">Shop Now</a>
               </p>
             </div>
           </div>
@@ -65,7 +65,7 @@ $this->title = 'Shoppers';
 
             <?php foreach ($categories as $cat){ ?>
                   <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
-                    <a class="block-2-item" href="#">
+                    <a class="block-2-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/cat/<?= $cat['id'] ?>">
                       <figure class="image">
                         <img src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $cat['image'] ?>" alt="" class="img-fluid">
                       </figure>

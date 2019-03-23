@@ -18,7 +18,10 @@ class CartController extends Controller
 {
     public function actionIndex($id = 0,$remove_id = 0)
     {
-        if (!empty($remove_id)){
+        $user_id = Yii::$app->user->id;
+//        $add_item = Cart::find()->where(['prod_id' => $id])->andWhere(['user_id' => $user_id])->asArray()->one();
+
+        if (!empty($remove_id)) {
             $remove_item = Cart::find()->where(['prod_id' => $remove_id])->andWhere(['user_id' => Yii::$app->user->id])->one();
             $remove_item->delete();
         }
@@ -27,28 +30,24 @@ class CartController extends Controller
 
             $cart = new Cart();
             $cart->prod_id = $id;
-            $cart->user_id = Yii::$app->user->id;
+            $cart->user_id = $user_id;
             $cart->qty = 1;
             $cart->save();
 
             $prods = Cart::find()->with('prod')->where(['user_id' => Yii::$app->user->id])->asArray()->all();
-            if (empty($prods)){
-                return $this->render('index',['mes' => 'Cart is empty']);
+            if (empty($prods)) {
+                return $this->render('index', ['mes' => 'Cart is empty']);
             }
 
             return $this->render('index', ['prods' => $prods]);
         }
-
-        else{
-            $cookie_prods = [];
-            if (Yii::$app->request->cookies->has('cart_prods')) {
-                $cookie_prods = Yii::$app->request->cookies->get('cart_prods');
-            }else{
-                return $this->render('index',['mes' => 'Cart is empty']);
-            }
-
-            return $this->render('index', ['prods' => $cookie_prods]);
-        }
+            return $this->render('index', ['mes' => 'Cart is empty']);
+//        else{
+//            $cookies = Yii::$app->request->cookies('cart');
+//            if (!empty($cookies)){
+//
+//            }
+//         }
     }
 
 }

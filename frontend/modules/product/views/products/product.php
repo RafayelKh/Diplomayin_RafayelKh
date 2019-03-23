@@ -9,8 +9,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-              <?php if (!empty($item['image'])){ ?>
-                  <img src="<?= \yii\helpers\Url::to('@web') ?>/images/cloth_1.jpg" alt="Image" class="img-fluid">
+              <?php if (!empty($product['image'])){ ?>
+                  <img src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $product['image'] ?>" alt="Image" class="img-fluid">
               <?php }else{ ?>
                   <img src="<?= \yii\helpers\Url::to('@web') ?>/images/default.jpg" alt="Image placeholder" class="img-fluid">
               <?php } ?>
@@ -45,11 +45,60 @@
             </div>
 
             </div>
-            <p><a href="<?= \yii\helpers\Url::to('@web') ?>/cart/<?= $product['id'] ?>" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
 
+              <?php
+              if (Yii::$app->user->isGuest){
+                  ?>
+                  <p><a class="buy-now btn btn-sm btn-primary" href="<?= \yii\helpers\Url::to('@web') ?>/login">Login for Purchase</a></p>
+                  <?php
+              }else{
+                  ?>
+                  <p><a class="buy-now btn btn-sm btn-primary" href="<?= \yii\helpers\Url::to('@web') ?>/cart/<?= $product['id'] ?>">Add to Cart</a></p>
+                  <?php
+              }
+              ?>
           </div>
         </div>
       </div>
+
+    <?php
+         \yii\widgets\Pjax::begin(['enablePushState' => false,'timeout' => 5000]);
+    ?>
+    <div style="margin-top: 50px;font-size: 16px;padding-left: 20px;width: 80%;">
+    <?php
+    if(!empty($comments)){
+        ?>
+        <ul>
+        <?php
+            foreach ($comments as $comment){
+        ?>
+                <div style="border:1px solid; padding-left: 20px;padding-top: 10px;padding-bottom: 10px;margin-top: 10px">
+                    <span><?= $comment['user']['username'];?></span>
+                    <div><?= $comment['content'];?></div>
+                    <div><?= date('F j,Y - H:i:s',strtotime($comment['date']));?></div>
+                </div>
+        <?php
+             }
+        ?>
+        </ul>
+            <?php
+    }
+
+    if(!Yii::$app->user->isGuest){
+        $form = \yii\bootstrap\ActiveForm::begin();
+        echo $form->field($model,'content')->textarea(['rows' => '3'])->label('Comment');
+        ?>
+        <br>
+        <?php
+        echo \yii\helpers\Html::submitButton('Send',['class' => 'btn']);
+        \yii\bootstrap\ActiveForm::end();
+    }
+
+    \yii\widgets\Pjax::end();
+
+    ?>
+
+
     </div>
 
     <div class="site-section block-3 site-blocks-2 bg-light">

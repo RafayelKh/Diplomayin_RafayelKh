@@ -1,9 +1,9 @@
 <div class="site-section">
     <div class="container">
         <?php
-        // echo "<pre>";
-        // var_dump($cat);
-        // die;
+//         echo "<pre>";
+//         var_dump($cat);
+//         die;
 
         ?>
         <div class="row mb-5">
@@ -20,9 +20,9 @@
                                     Latest
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                                    <a class="dropdown-item" href="#">Men</a>
-                                    <a class="dropdown-item" href="#">Women</a>
-                                    <a class="dropdown-item" href="#">Children</a>
+                                    <?php foreach ($cat as $each){ ?>
+                                          <a class="dropdown-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/cat/<?= $each['id'] ?>"><?= $each['title'] ?></a>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="btn-group">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <?php
-                \yii\widgets\Pjax::begin(['enablePushState' => false,'timeout' => 5000]);
+//                \yii\widgets\Pjax::begin(['enablePushState' => false,'timeout' => 5000]);
 //                ?>
                 <div class="row mb-5">
 
@@ -54,7 +54,7 @@
                             <div class="block-4 text-center border">
                                 <figure class="block-4-image">
                                     <?php if (!empty($item['image'])) { ?>
-                                    <a href="shop/prod/<?= $item['id'] ?>"><img
+                                            <a href="shop/prod/<?= $item['id'] ?>"><img
                                                 src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $item['image'] ?>"
                                                 alt="Image placeholder" class="img-fluid"></a>
                                     <?php }else{ ?>
@@ -65,7 +65,7 @@
                                     <?php } ?>
                                 </figure>
                                 <div class="block-4-text p-4">
-                                    <h3><a href="shop/prod/<?= $item['id'] ?>"><?= $item['title'] ?></a></h3>
+                                    <h3><a href="<?= \yii\helpers\Url::to('@web') ?>/shop/prod/<?= $item['id'] ?>"><?= $item['title'] ?></a></h3>
                                     <p class="mb-0">Finding perfect t-shirt</p>
                                     <p class="text-primary font-weight-bold">$<?= $item['price'] ?></p>
                                 </div>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <?php
-                \yii\widgets\Pjax::end();
+//                \yii\widgets\Pjax::end();
                 ?>
 
             </div>
@@ -98,8 +98,9 @@
                 <div class="border p-4 rounded mb-4">
                     <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
                     <ul class="list-unstyled mb-0">
+                        <a class="dropdown-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop">All</a>
                         <?php foreach ($cat as $category) { ?>
-                            <a class="dropdown-item" href="#"><?= $category['title'] ?></a>
+                            <a class="dropdown-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/cat/<?= $category['id'] ?>"><?= $category['title'] ?></a>
                         <?php } ?>
                     </ul>
                 </div>
@@ -127,27 +128,6 @@
                                     class="text-black">Large (1,392)</span>
                         </label>
                     </div>
-
-                    <div class="mb-4">
-                        <h3 class="mb-3 h6 text-uppercase text-black d-block">Color</h3>
-                        <a href="#" class="d-flex color-item align-items-center">
-                            <span class="bg-danger color d-inline-block rounded-circle mr-2"></span> <span
-                                    class="text-black">Red (2,429)</span>
-                        </a>
-                        <a href="#" class="d-flex color-item align-items-center">
-                            <span class="bg-success color d-inline-block rounded-circle mr-2"></span> <span
-                                    class="text-black">Green (2,298)</span>
-                        </a>
-                        <a href="#" class="d-flex color-item align-items-center">
-                            <span class="bg-info color d-inline-block rounded-circle mr-2"></span> <span
-                                    class="text-black">Blue (1,075)</span>
-                        </a>
-                        <a href="#" class="d-flex color-item align-items-center">
-                            <span class="bg-primary color d-inline-block rounded-circle mr-2"></span> <span
-                                    class="text-black">Purple (1,075)</span>
-                        </a>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -165,7 +145,7 @@
                     <div class="row">
                         <?php foreach ($cat as $each) { ?>
                             <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
-                                <a class="block-2-item" href="#">
+                                <a class="block-2-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/cat/<?= $category['id'] ?>">
                                     <figure class="image">
                                         <img href="<?= \yii\helpers\Url::to('@web') ?>/shop/<?= $each['id'] ?>"
                                              src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $each['image'] ?>" alt=""

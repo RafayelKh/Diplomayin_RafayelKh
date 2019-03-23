@@ -61,12 +61,13 @@ return [
                 'cart/<id>' => 'cart/cart',
                 'cart/remove/<remove_id>' => 'cart/cart',
                 'shop' => 'product/products',
-                'shop/<cat_id>' => 'product/products',
+                'shop/cat/<cat_id>' => 'product/products',
                 'shop/prod/<id>' => 'product/products/product',
                 'blog/' => 'blog/blog/index',
                 "blog/<id>" => 'blog/blog/article',
                 "blog/<id>/add" => 'blog/add',
-                'user' => 'user/user/index'
+                'user' => 'user/user/index',
+                'login' => 'site/login'
             ],
         ],
 
