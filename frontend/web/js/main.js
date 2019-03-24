@@ -155,7 +155,15 @@ jQuery(document).ready(function($) {
       max: 500,
       values: [ 75, 300 ],
       slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        $( "#price-from" ).val( ui.values[ 0 ]);
+        $( "#price-to" ).val( ui.values[ 1 ]);
+          // $.ajax({
+          //     'method': 'POST',
+          //     'url': 'http://localhost/Diplomayin_RafayelKh/frontend/web/shop/',
+			//   'content':{
+          //     	'to':
+			//   }
+          // });
       }
     });
     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +

@@ -54,8 +54,8 @@
                             <div class="block-4 text-center border">
                                 <figure class="block-4-image">
                                     <?php if (!empty($item['image'])) { ?>
-                                            <a href="shop/prod/<?= $item['id'] ?>"><img
-                                                src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $item['image'] ?>"
+                                            <a href="shop/prod/<?= $item['id'] ?>"><img style="width: 261px"
+                                                src="<?= \yii\helpers\Url::to('@web') ?>/images/products/<?= $item['image'] ?>"
                                                 alt="Image placeholder" class="img-fluid"></a>
                                     <?php }else{ ?>
                                         <a href="shop/prod/<?= $item['id'] ?>"><img
@@ -110,6 +110,10 @@
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
                         <div id="slider-range" class="border-primary"></div>
                         <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white"
+                               disabled=""/>
+                        <input type="hidden" name="price-from" id="price-from" class="form-control border-0 pl-0 bg-white"
+                               disabled=""/>
+                        <input type="hidden" name="price-to" id="price-to" class="form-control border-0 pl-0 bg-white"
                                disabled=""/>
                     </div>
 

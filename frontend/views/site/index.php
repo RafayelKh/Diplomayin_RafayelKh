@@ -100,7 +100,7 @@ $this->title = 'Shoppers';
                            <div class="block-4 text-center">
                                <figure class="block-4-image">
                                    <?php if (!empty($item['image'])) { ?>
-                                       <img src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $item['image'] ?>" alt="Image" class="img-fluid">
+                                       <img src="<?= \yii\helpers\Url::to('@web') ?>/images/products/<?= $item['image'] ?>" alt="Image" class="img-fluid">
                                    <?php }else{ ?>
                                        <img src="<?= \yii\helpers\Url::to('@web') ?>/images/default.jpg" alt="Image" class="img-fluid">
                                    <?php } ?>

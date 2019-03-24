@@ -92,10 +92,16 @@ class ProductController extends Controller
                             foreach ($imgFile as $key => $img) {
                                 if ($key == 0) {
                                     $result = $this->addImage($img, $imgPath, $model);
+                                    if (!$result) {
+                                        $transaction->rollBack();
+                                    }
                                 } else {
                                     $image_obj = new Image();
                                     $image_obj->prod_id = $model->id;
                                     $result = $this->addImage($img, $imgPath, $image_obj);
+                                    if (!$result) {
+                                        $transaction->rollBack();
+                                    }
                                 }
                             }
                         } else {
@@ -114,14 +120,16 @@ class ProductController extends Controller
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
                     $transaction->rollBack();
+                    print_r($model->errors);
                 }
             }else {
                 $transaction->rollBack();
+                echo "cant load";
             }
         }catch (\Exception $e){
             $transaction->rollBack();
+            echo $e->getMessage();
         }
-
 
         return $this->render('create', [
             'model' => $model,
@@ -164,10 +172,16 @@ class ProductController extends Controller
                             foreach ($imgFile as $key => $img) {
                                 if ($key == 0) {
                                     $result = $this->addImage($img, $imgPath, $model);
+                                    if (!$result) {
+                                        $transaction->rollBack();
+                                    }
                                 } else {
                                     $image_obj = new Image();
                                     $image_obj->prod_id = $model->id;
                                     $result = $this->addImage($img, $imgPath, $image_obj);
+                                    if (!$result) {
+                                        $transaction->rollBack();
+                                    }
                                 }
                             }
                         } else {
@@ -243,7 +257,7 @@ class ProductController extends Controller
      * Finds the Products model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Products the loaded model
+     * @return Product the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

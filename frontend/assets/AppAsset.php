@@ -37,7 +37,7 @@ class AppAsset extends AssetBundle
         'js/slick.min.js',
 //        '//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
 //        '//code.jquery.com/jquery-1.11.1.min.js',
-        'js/demo.js',
+//        'js/demo.js',
 
     ];
     public $depends = [

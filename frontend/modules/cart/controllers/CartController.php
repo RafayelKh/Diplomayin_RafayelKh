@@ -19,11 +19,10 @@ class CartController extends Controller
     public function actionIndex($id = 0,$remove_id = 0)
     {
         $user_id = Yii::$app->user->id;
-//        $add_item = Cart::find()->where(['prod_id' => $id])->andWhere(['user_id' => $user_id])->asArray()->one();
 
         if (!empty($remove_id)) {
-            $remove_item = Cart::find()->where(['prod_id' => $remove_id])->andWhere(['user_id' => Yii::$app->user->id])->one();
-            $remove_item->delete();
+                $remove_item = Cart::find()->where(['prod_id' => $remove_id])->andWhere(['user_id' => Yii::$app->user->id])->one();
+                $remove_item->delete();
         }
         if(!Yii::$app->user->isGuest){
             $id = intval($id);

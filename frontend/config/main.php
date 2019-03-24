@@ -29,6 +29,17 @@ return [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages',
+                ],
+                'common' => [
+                    'class' => 'yii\i18n\DbMessageSource',
+                ],
+            ],
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -52,6 +63,9 @@ return [
         ],
 
         'urlManager' => [
+            'class' => 'codemix\localeurls\UrlManager',
+            'languages' => ['en', 'ru'],
+            'enableDefaultLanguageUrlCode' => true,
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [

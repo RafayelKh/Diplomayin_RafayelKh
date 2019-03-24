@@ -30,17 +30,16 @@
                     </thead>
                     <tbody>
                     <?php
+                    \yii\widgets\Pjax::begin(['enablePushState' => false]);
                     if (!empty($prods)) {
                     foreach ($prods as $row){
-// echo "<pre>";
-// var_dump($row);
-// die;
-                    \yii\widgets\Pjax::begin(['enablePushState' => false]);
+
+
                     ?>
                     <tr>
                         <td class="product-thumbnail">
                             <?php if (!empty($row['prod']['image'])) { ?>
-                                <img src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $row['prod']['image'] ?>" alt="Image" class="img-fluid">
+                                <img src="<?= \yii\helpers\Url::to('@web') ?>/images/products/<?= $row['prod']['image'] ?>" alt="Image" class="img-fluid">
                             <?php }else{ ?>
                                 <img src="<?= \yii\helpers\Url::to('@web') ?>/images/default.jpg" alt="Image" class="img-fluid">
                             <?php } ?>
@@ -67,9 +66,10 @@
                         <td><a href="<?= \yii\helpers\Url::to('@web') ?>/cart/remove/<?= $row['prod']['id'] ?>" id="remove_item" class="btn btn-primary btn-sm">X</a></td>
                     </tr>
                     <?php
-                        \yii\widgets\Pjax::end();
+
                             };
                         };
+                    \yii\widgets\Pjax::end();
                     ?>
 
                   </tbody>

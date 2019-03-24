@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-md-6">
               <?php if (!empty($product['image'])){ ?>
-                  <img src="<?= \yii\helpers\Url::to('@web') ?>/images/<?= $product['image'] ?>" alt="Image" class="img-fluid">
+                  <img style="width: 300px" src="<?= \yii\helpers\Url::to('@web') ?>/images/products/<?= $product['image'] ?>" alt="Image" class="img-fluid">
               <?php }else{ ?>
                   <img src="<?= \yii\helpers\Url::to('@web') ?>/images/default.jpg" alt="Image placeholder" class="img-fluid">
               <?php } ?>
@@ -64,7 +64,7 @@
     <?php
          \yii\widgets\Pjax::begin(['enablePushState' => false,'timeout' => 5000]);
     ?>
-    <div style="margin-top: 50px;font-size: 16px;padding-left: 20px;width: 80%;">
+    <div style="margin-top: 150px;font-size: 16px;padding-left: 20px;width: 80%;">
     <?php
     if(!empty($comments)){
         ?>

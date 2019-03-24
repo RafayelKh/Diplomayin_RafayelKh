@@ -24,7 +24,9 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
-<?php $this->beginBody() ?>
+<?php $this->beginBody();
+Yii::$app->language = 'ru'
+?>
 
 <div class="wrap">
     <header class="site-navbar" role="banner">
@@ -75,8 +77,8 @@ AppAsset::register($this);
                     <?php
 
                     $menuItems = [
-                        ['label' => 'Home', 'url' => ['/']],
-                        ['label' => 'About', 'url' => ['/about-us']],
+                        ['label' => Yii::t('app', 'home'), 'url' => ['/']],
+                        ['label' => 'About Us', 'url' => ['/about-us']],
                         ['label' => 'Contact', 'url' => ['/contact']],
                         ['label' => 'Cart', 'url' => ['/cart']],
                         ['label' => 'Shop', 'url' => ['/shop']],
