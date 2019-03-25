@@ -12,7 +12,7 @@ use common\models\Product;
 use yii\widgets\Pjax;
 use frontend\modules\product\models\Categories;
 use frontend\modules\product\models\Brand;
-use frontend\modules\product\model\Prodcomment;
+use frontend\modules\product\models\Prodcomment;
 
 /**
  *
@@ -34,7 +34,6 @@ class ProductsController extends Controller
         if (!empty($cat_id)){
             $product = $product->where(['cat_id' => $cat_id]);
         }
-
 
         $product = $product->offset($pagination->offset)->limit($pagination->limit);
         $product = $product->asArray()->all();

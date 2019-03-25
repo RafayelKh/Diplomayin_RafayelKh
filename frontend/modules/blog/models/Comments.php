@@ -2,6 +2,7 @@
 
 namespace frontend\modules\blog\models;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -49,5 +50,9 @@ class Comments extends \yii\db\ActiveRecord
             'content' => 'Content',
             'date' => 'Date',
         ];
+    }
+
+    public function getUser(){
+        return $this->hasOne(User::className(),['id' => 'user_id']);
     }
 }

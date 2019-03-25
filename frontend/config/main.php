@@ -77,11 +77,12 @@ return [
                 'shop' => 'product/products',
                 'shop/cat/<cat_id>' => 'product/products',
                 'shop/prod/<id>' => 'product/products/product',
-                'blog/' => 'blog/blog/index',
+                'blog/' => 'blog/blog',
                 "blog/<id>" => 'blog/blog/article',
-                "blog/<id>/add" => 'blog/add',
+                "blog/<id>/add" => 'blog/blog/add',
                 'user' => 'user/user/index',
-                'login' => 'site/login'
+                'login' => 'site/login',
+                'favorites' => '/favorites'
             ],
         ],
 

@@ -60,4 +60,5 @@ class Articles extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Comments::className(), ['article_id' => 'id']);
     }
+
 }

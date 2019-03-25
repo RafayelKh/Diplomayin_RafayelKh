@@ -3,14 +3,14 @@
 namespace frontend\modules\blog;
 
 /**
- * product module definition class
+ * blog module definition class
  */
 class Module extends \yii\base\Module
 {
     /**
      * {@inheritdoc}
      */
-    public $controllerNamespace = 'frontend\modules\product\controllers';
+    public $controllerNamespace = 'frontend\modules\blog\controllers';
 
     /**
      * {@inheritdoc}

@@ -1,29 +1,27 @@
 <?php
 
-namespace frontend\modules\product\model;
+namespace common\models;
 
-use common\models\User;
 use Yii;
 
 /**
- * This is the model class for table "prodcomment".
+ * This is the model class for table "favorites".
  *
  * @property int $id
  * @property int $user_id
  * @property int $prod_id
- * @property string $content
- * @property string $date
  *
+ * @property Product $prod
  * @property User $user
  */
-class Prodcomment extends \yii\db\ActiveRecord
+class Favorites extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'prodcomment';
+        return 'favorites';
     }
 
     /**
@@ -32,10 +30,10 @@ class Prodcomment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'prod_id', 'content'], 'required'],
-            [['user_id', 'prod_id'], 'integer'],
-            [['content'], 'string'],
-            [['date'], 'safe'],
+            [['id', 'user_id', 'prod_id'], 'required'],
+            [['id', 'user_id', 'prod_id'], 'integer'],
+            [['id'], 'unique'],
+            [['prod_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['prod_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -49,9 +47,15 @@ class Prodcomment extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'prod_id' => 'Prod ID',
-            'content' => 'Content',
-            'date' => 'Date',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProd()
+    {
+        return $this->hasOne(Product::className(), ['id' => 'prod_id']);
     }
 
     /**

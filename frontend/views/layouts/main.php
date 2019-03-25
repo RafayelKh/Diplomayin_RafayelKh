@@ -25,7 +25,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody();
-Yii::$app->language = 'ru'
+Yii::$app->language = 'en'
 ?>
 
 <div class="wrap">
@@ -39,7 +39,7 @@ Yii::$app->language = 'ru'
                             <span class="icon icon-search2"></span>
                             <form action="<?= \yii\helpers\Url::to('@web') ?>/shop">
                                 <input type="text" name="s" class="form-control border-0" placeholder="Search">
-                                <button class="menu_search_button">></button>
+                                <button class="btn btn-sm btn-primary">></button>
                             </form>
                         </form>
                     </div>
@@ -55,11 +55,12 @@ Yii::$app->language = 'ru'
                             <ul>
                                 <li><a href="twitter.com"><i class="fab fa-twitter-square icon"></i></a></li>
                                 <li><a href="facebook.com"><i class="fab fa-facebook-square icon"></i></a></li>
+                                <li><a href="<?= \yii\helpers\Url::to('@web') ?>/favorites"><i class="fas fa-heart icon"></i></a></li>
                                 <li>
                                     <a href="<?= \yii\helpers\Url::to('@web') ?>/cart" class="site-cart">
                                         <span class="icon icon-shopping_cart">
                                             <i class="fas fa-shopping-cart"></i>
-                                            <span class="count">6</span>
+<!--                                            <span class="count">--><?//= $cart ?><!--</span>-->
                                         </span>
                                     </a>
                                 </li>
@@ -78,16 +79,17 @@ Yii::$app->language = 'ru'
 
                     $menuItems = [
                         ['label' => Yii::t('app', 'home'), 'url' => ['/']],
-                        ['label' => 'About Us', 'url' => ['/about-us']],
-                        ['label' => 'Contact', 'url' => ['/contact']],
-                        ['label' => 'Cart', 'url' => ['/cart']],
-                        ['label' => 'Shop', 'url' => ['/shop']],
+                        ['label' => Yii::t('app', 'about'), 'url' => ["/about-us"]],
+                        ['label' => Yii::t('app', 'contact'), 'url' => ['/contact']],
+                        ['label' => Yii::t('app', 'cart'), 'url' => ['/cart']],
+                        ['label' => Yii::t('app', 'shop'), 'url' => ['/shop']],
+                        ['label' => Yii::t('app', 'blog'), 'url' => ['/blog']],
                     ];
                     if (Yii::$app->user->isGuest) {
-                        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-                        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+                        $menuItems[] = ['label' => Yii::t('app', 'sign_in'), 'url' => ['/site/login']];
+                        $menuItems[] = ['label' => Yii::t('app', 'sign_up'), 'url' => ['/site/signup']];
                     } else {
-                        $menuItems[] = ['label' => 'Logout','linkOptions' => ['data-method' => 'post'], 'url' => ['/site/logout',]];
+                        $menuItems[] = ['label' => Yii::t('app', 'logout'),'linkOptions' => ['data-method' => 'post'], 'url' => ['/site/logout',]];
                     }
                     echo Nav::widget([
                         'options' => ['class' => 'site-navigation text-right text-md-center'],
@@ -111,18 +113,18 @@ Yii::$app->language = 'ru'
             <div class="col-lg-6 mb-5 mb-lg-0">
                 <div style="font-size: 16px" class="row">
                     <div class="col-md-12">
-                        <h3 class="footer-heading mb-4">Navigations</h3>
+                        <h3 class="footer-heading mb-4"><?= Yii::t('app', 'navigation') ?></h3>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <ul class="list-unstyled">
-                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>/shop">Sell online</a></li>
-                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>/shop">Features</a></li>
-                            <li><a href="">Shopping cart</a></li>
+                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>/shop"><?= Yii::t('app', 'sell_online') ?></a></li>
+                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>/shop"><?= Yii::t('app', 'featured') ?></a></li>
+                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>/cart"><?= Yii::t('app', 'cart') ?></a></li>
                         </ul>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <ul class="list-unstyled">
-                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>contact">Contact Us</a></li>
+                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>/contact"><?= Yii::t('app', 'contact') ?></a></li>
                             <li><a href="<?= \yii\helpers\Url::to('@web') ?>">Dropshipping</a></li>
                             <li><a href="<?= \yii\helpers\Url::to('@web') ?>">Website development</a></li>
                         </ul>
@@ -176,14 +178,6 @@ Yii::$app->language = 'ru'
     </div>
 </footer>
 </div>
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
-
 </body>
 </html>
 <?php $this->endPage() ?>

@@ -34,7 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'password_hash',
 //            'password_reset_token',
             'email:email',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function($data){
+                    if ($data == '0'){
+                        return 'Inative';
+                    }else{
+                        return 'Active';
+                    }
+                }
+            ],
             'created_at:datetime',
             'updated_at:datetime',
         ],

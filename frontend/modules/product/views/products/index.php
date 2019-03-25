@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <?php
-//                \yii\widgets\Pjax::begin(['enablePushState' => false,'timeout' => 5000]);
+                \yii\widgets\Pjax::begin(['enablePushState' => false,'timeout' => 5000]);
 //                ?>
                 <div class="row mb-5">
 
@@ -67,7 +67,14 @@
                                 <div class="block-4-text p-4">
                                     <h3><a href="<?= \yii\helpers\Url::to('@web') ?>/shop/prod/<?= $item['id'] ?>"><?= $item['title'] ?></a></h3>
                                     <p class="mb-0">Finding perfect t-shirt</p>
-                                    <p class="text-primary font-weight-bold">$<?= $item['price'] ?></p>
+                                    <p class="text-primary font-weight-bold">
+                                        <?php if (!empty($item['sale_price'])){ ?>
+                                              <span style="text-decoration: line-through">$<?= $item['price'] ?></span>
+                                             <h2>$<?= $item['sale_price'] ?></h2>
+                                        <?php }else{ ?>
+                                             <h2>$<?= $item['price'] ?></h2>
+                                        <?php } ?>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +96,7 @@
                     </div>
                 </div>
                 <?php
-//                \yii\widgets\Pjax::end();
+                \yii\widgets\Pjax::end();
                 ?>
 
             </div>
@@ -132,6 +139,7 @@
                                     class="text-black">Large (1,392)</span>
                         </label>
                     </div>
+                    <input href="<?= \yii\helpers\Url::to('@web') ?>/shop" type="submit" class="btn btn-sm btn-primary">
                 </div>
             </div>
         </div>

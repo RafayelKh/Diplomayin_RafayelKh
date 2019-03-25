@@ -1,9 +1,10 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-// echo "<pre>";
-// var_dump($model);
-// die;
+ echo "<pre>";
+ var_dump($messages);
+
+//die;
 ?>
     <!-- section -->
 		<div class="section">
@@ -15,16 +16,11 @@ use yii\bootstrap\ActiveForm;
 					<div class="col-md-12">
 						<div class="section-row sticky-container">
 							<div class="main-post">
-								<h3><?= $info['title'] ?></h3>
-                                <p><?= $info['description'] ?></p>
-                                <p><?= $info['description'] ?></p>
+								<h3><?= $messages['title'] ?></h3>
                                     <figure class="figure-img">
 									<img class="img-responsive" src="<?= \yii\helpers\Url::to('@web') ?>/img/post-4.jpg" alt="">
 									<figcaption>So Lorem Ipsum is bad (not necessarily)</figcaption>
 								</figure>
-                                <p><?= $info['description'] ?></p>
-                                <p><?= $info['description'] ?></p>
-                                <p><?= $info['description'] ?></p>
                                 <blockquote class="blockquote">
 									I’ve heard the argument that “lorem ipsum” is effective in wireframing or design because it helps people focus on the actual layout, or color scheme, or whatever. What kills me here is that we’re talking about creating a user experience that will (whether we like it or not) be DRIVEN by words. The entire structure of the page or app flow is FOR THE WORDS.
 								</blockquote>

@@ -20,8 +20,8 @@ class AppAsset extends AssetBundle
         'css/owl.theme.default.min.css',
         'css/aos.css',
         'css/style.css',
-        'css/profile.css',
-        'css/demo.css',
+//        'css/profile.css',
+//        'css/demo.css',
         'css/fontawesome-all.min.css',
         'https://use.fontawesome.com/releases/v5.7.2/css/all.css',
     ];
@@ -35,9 +35,9 @@ class AppAsset extends AssetBundle
         'js/aos.js',
         'js/main.js',
         'js/slick.min.js',
-//        '//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
-//        '//code.jquery.com/jquery-1.11.1.min.js',
-//        'js/demo.js',
+        '//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
+        '//code.jquery.com/jquery-1.11.1.min.js',
+        'js/demo.js',
 
     ];
     public $depends = [

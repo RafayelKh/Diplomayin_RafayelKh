@@ -2,12 +2,15 @@
 
 namespace backend\controllers;
 
+use frontend\modules\product\models\Categories;
 use Yii;
 use frontend\modules\product\models\Brand;
 use backend\models\BrandSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * BrandController implements the CRUD actions for Brand model.
@@ -65,12 +68,47 @@ class BrandController extends Controller
     public function actionCreate()
     {
         $model = new Brand();
+        $prod_img = $model->image;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $imgFile = UploadedFile::getInstance($model, "image");
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            if ($model->load(Yii::$app->request->post())) {
+                $model->image = $prod_img;
+
+                if ($model->save()) {
+                    $imgPath = Yii::getAlias('@frontend') . '/web/images/brands/';
+
+                    $result = $this->addImage($imgFile, $imgPath, $model);
+
+                    if ($result) {
+                        if (!empty($prod_img)) {
+                            if (file_exists($imgPath . $prod_img)) {
+                                unlink($imgPath . $prod_img);
+                            }
+                        }
+
+                    } else {
+                        $transaction->rollBack();
+                    }
+
+                    if ($transaction->isActive) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+
+                } else {
+                    $transaction->rollBack();
+                    print_r($model->errors);
+                }
+            }
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            print_r($e->getMessage());
         }
 
-        return $this->render('create', [
+        return $this->render('update', [
             'model' => $model,
         ]);
     }
@@ -85,9 +123,44 @@ class BrandController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $prod_img = $model->image;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $imgFile = UploadedFile::getInstance($model, "image");
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            if ($model->load(Yii::$app->request->post())) {
+                $model->image = $prod_img;
+
+                if ($model->save()) {
+                    $imgPath = Yii::getAlias('@frontend') . '/web/images/brands/';
+
+                    $result = $this->addImage($imgFile, $imgPath, $model);
+
+                    if ($result) {
+                        if (!empty($prod_img)) {
+                            if (file_exists($imgPath . $prod_img)) {
+                                unlink($imgPath . $prod_img);
+                            }
+                        }
+
+                    } else {
+                        $transaction->rollBack();
+                    }
+
+                    if ($transaction->isActive) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+
+                } else {
+                    $transaction->rollBack();
+                    print_r($model->errors);
+                }
+            }
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            print_r($e->getMessage());
         }
 
         return $this->render('update', [
@@ -123,5 +196,20 @@ class BrandController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    private function addImage($imgFile, $imgPath, $model)
+    {
+        $image_name = Yii::$app->security->generateRandomString() . '.' . $imgFile->extension;
+
+        $path = $imgPath . $image_name;
+        echo $path;
+        if ($imgFile->saveAs($path)) {
+            $model->image = $image_name;
+            $model->save(false);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -33,8 +33,6 @@
                     \yii\widgets\Pjax::begin(['enablePushState' => false]);
                     if (!empty($prods)) {
                     foreach ($prods as $row){
-
-
                     ?>
                     <tr>
                         <td class="product-thumbnail">
@@ -48,7 +46,13 @@
                         <td class="product-name">
                             <h2 class="mystyle text-black"><?= $row['prod']['title'] ?></h2>
                         </td>
-                        <td><h2>$<?= $row['prod']['price'] ?></h2></td>
+                        <td>
+                            <?php if (!empty($row['prod']['sale_price'])){ ?>
+                                <h2>$<?= $row['prod']['sale_price'] ?></h2>
+                            <?php }else{ ?>
+                                <h2>$<?= $row['prod']['price'] ?></h2>
+                            <?php } ?>
+                        </td>
                         <td>
                             <div class="input-group mb-3" style="max-width: 120px;">
                                 <div class="input-group-prepend">
