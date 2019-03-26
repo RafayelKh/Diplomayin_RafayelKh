@@ -677,14 +677,12 @@ a {
     display: inline-block;
     width: 40px;
     height: 40px;
-    line-height: 40px;
     border-radius: 50%;
     border: 1px solid #ccc; }
   .site-block-27 ul li.active a, .site-block-27 ul li.active span {
     background: #7971ea;
     color: #fff;
     border: 1px solid transparent; }
-
 #slider-range {
   height: 8px; }
   #slider-range .ui-slider-handle {

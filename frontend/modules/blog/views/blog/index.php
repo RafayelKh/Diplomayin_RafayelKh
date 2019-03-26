@@ -1,6 +1,9 @@
 		<!-- section -->
 		<div class="section">
 			<!-- container -->
+            <?php
+            \yii\widgets\Pjax::begin(['enablePushState' => false]);
+            ?>
 			<div class="container">
 
 				<!-- row -->
@@ -14,7 +17,7 @@
 					<!-- post -->
 					<div style="margin-bottom: 100px" class="col-md-4">
 						<div class="post">
-							<a class="post-img" href="blog-post.html"><img style="width: 400px" src="<?= \yii\helpers\Url::to('@web') ?>/images/blog_1.jpg" alt=""></a>
+							<a class="post-img" href="#"><img style="width: 400px" src="<?= \yii\helpers\Url::to('@web') ?>/images/blog_1.jpg" alt=""></a>
 							<div class="post-body">
 								<div class="post-meta">
                                     <h2>
@@ -33,5 +36,21 @@
 
 			</div>
 			<!-- /container -->
+            <div class="row" data-aos="fade-up">
+                <div class="col-md-12 text-center">
+                    <div class="site-block-27">
+                        <ul style="font-size: 15px">
+                            <?php
+
+                            echo \yii\widgets\LinkPager::widget(['pagination' => $pagination]);
+
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <?php
+            \yii\widgets\Pjax::end();
+            ?>
 		</div>
 		<!-- /section -->

@@ -13,46 +13,65 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="favorites-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options'=> [
+            'class' => 'custom'
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             [
                 'attribute' => 'Title',
-                'value' => function($data){
+                'value' => function ($data) {
                     return $data['prod']['title'];
                 }
             ],
             [
                 'attribute' => 'Description',
-                'value' => function($data){
+                'value' => function ($data) {
                     return $data['prod']['description'];
                 }
             ],
             [
                 'attribute' => 'Category',
-                'value' => function($data){
+                'value' => function ($data) {
                     return $data['prod']['cat']['title'];
                 }
             ],
             [
                 'attribute' => 'Brand',
-                'value' => function($data){
+                'value' => function ($data) {
                     return $data['prod']['brand']['title'];
                 }
             ],
             [
                 'attribute' => 'Price',
-                'value' => function($data){
-                    return $data['prod']['price'];
+                'value' => function ($data) {
+                    if (!empty($data['prod']['sale_price'])) {
+                        return $data['prod']['sale_price'];
+                    }else{
+                        return $data['prod']['price'];
+                    }
                 }
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header'=> 'Actions',
+                'headerOptions' => ['width' => '80'],
+                'template' => '{delete} {update} {film}',
+                'buttons' => [
+                    'film' => function ($url,$model,$key) {
+                        $url = \yii\helpers\Url::to(['/favorites/cart/'.$model->id]);
+
+                        return Html::a('<span class="glyphicon glyphicon-film"></span>', $url);
+                    },
+                ],
+
+            ],
         ],
     ]); ?>
 </div>

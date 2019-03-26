@@ -79,10 +79,13 @@ return [
                 'shop/prod/<id>' => 'product/products/product',
                 'blog/' => 'blog/blog',
                 "blog/<id>" => 'blog/blog/article',
-                "blog/<id>/add" => 'blog/blog/add',
+                "blog/add/<add_id>" => 'blog/blog/article',
                 'user' => 'user/user/index',
                 'login' => 'site/login',
-                'favorites' => '/favorites'
+                'favorites' => '/favorites',
+                'favorites/<id>' => 'favorites/create',
+                'favorites/delete/<id>' => 'favorites/delete',
+                'favorites/cart/<id>' => 'favorites/film',
             ],
         ],
 

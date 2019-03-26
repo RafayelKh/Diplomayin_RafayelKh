@@ -47,8 +47,8 @@ class ProductsController extends Controller
         // var_dump($_GET);
 
         $one_product = Product::find()->where(['id' => $id])->asArray()->one();
-        $product = Product::find()->limit(3)->asArray()->all();
-        $comments = Prodcomment::find()->where(['prod_id' => $id])->with(['user'])->asArray()->all();
+        $product = Product::find()->where(['is_featured' => 1])->limit(3)->asArray()->all();
+        $comments = Prodcomment::find()->where(['prod_id' => $id])->orderBy(['id' => SORT_DESC])->with(['user'])->asArray()->all();
 
         
         $model = new Prodcomment();

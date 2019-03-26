@@ -17,35 +17,33 @@ use yii\web\Controller;
 class BlogController extends Controller
 {
 
-    public function actionIndex(){
+    public function actionIndex()
+    {
         $articles = Articles::find();
-        $pagination = new Pagination(['totalCount' => $articles->count(),'pageSize' => 6]);
+        $pagination = new Pagination(['totalCount' => $articles->count(), 'pageSize' => 1]);
 
         $articles = $articles->offset($pagination->offset)->limit($pagination->limit);
         $articles = $articles->asArray()->all();
 
-        return $this->render('index',['info' => $articles]);
+        return $this->render('index', ['info' => $articles, 'pagination' => $pagination]);
     }
 
-    public function actionArticle($id,$slug=""){
-        $article = Articles::find()->with(['comments' => function($article){
-            $article->with([' user']);
-        } ])->where(['id' => $id])->orderBy(['created_at' => SORT_DESC])->asArray()->one();
+    public function actionArticle($id = '')
+    {
+        $article = Articles::find()->with(['comments' => function ($article) {
+            $article->with(['user']);
+        }])->where(['id' => $id])->orderBy(['created_at' => SORT_DESC])->asArray()->one();
 
         $model = new Comments();
-        $model->user_id = \Yii::$app->user->id;
-        $model->article_id = $id;
-        if($model->load(\Yii::$app->request->post()) && $model->save()){
-            return $this->refresh();
+
+        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
+            if ($model->save()) {
+                return $this->refresh();
+            }
         }
 
-        echo '<pre>';
-        var_dump($article);
-        die;
-        //$comments = Comments::find()->where(['artcile_id' => $id])->asArray()->all();
-        return $this->render('article',['messages' => $article,'model' => $model]);
+        return $this->render('article', ['messages' => $article, 'model' => $model]);
     }
-
 
 
 }
