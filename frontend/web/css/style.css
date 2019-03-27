@@ -604,7 +604,9 @@ a {
 
 .block-7 .form-control {
   padding-right: 96px; }
-
+.custom-btn{
+  margin-top: 20px;
+}
 .block-7 .btn {
   position: absolute;
   width: 80px;
@@ -685,6 +687,9 @@ a {
     border: 1px solid transparent; }
 #slider-range {
   height: 8px; }
+.font-size{
+  font-size: 22px;
+}
   #slider-range .ui-slider-handle {
     width: 16px;
     height: 16px;

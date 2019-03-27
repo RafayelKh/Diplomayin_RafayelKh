@@ -119,13 +119,9 @@ use yii\bootstrap\ActiveForm;
             </div>
 
             <?php
-            $form = ActiveForm::begin(['action' => yii\helpers\Url::to('@web') . "/blog/".$item['id']]); ?>
-
-
+            $form = ActiveForm::begin(); ?>
             <?= $form->field($model, 'message')->label('Message') ?>
-
             <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
-
             <?php ActiveForm::end(); ?>
         </div>
         <!-- /reply -->

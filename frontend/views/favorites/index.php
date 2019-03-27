@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\FavoritesSearch */
@@ -17,12 +18,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'options'=> [
+        'options' => [
             'class' => 'custom'
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            [
+                'attribute' => 'Image',
+                'value' => function ($product) {
+                    return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/products/'. $product['prod']['image']), ['width' => '80px']);
+                }
+            ],
             [
                 'attribute' => 'Title',
                 'value' => function ($data) {
@@ -52,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     if (!empty($data['prod']['sale_price'])) {
                         return $data['prod']['sale_price'];
-                    }else{
+                    } else {
                         return $data['prod']['price'];
                     }
                 }
@@ -60,12 +67,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'header'=> 'Actions',
+                'header' => 'Actions',
                 'headerOptions' => ['width' => '80'],
                 'template' => '{delete} {update} {film}',
                 'buttons' => [
-                    'film' => function ($url,$model,$key) {
-                        $url = \yii\helpers\Url::to(['/favorites/cart/'.$model->id]);
+                    'film' => function ($url, $model, $key) {
+                        $url = \yii\helpers\Url::to(['/favorites/cart/' . $model->id]);
 
                         return Html::a('<span class="glyphicon glyphicon-film"></span>', $url);
                     },

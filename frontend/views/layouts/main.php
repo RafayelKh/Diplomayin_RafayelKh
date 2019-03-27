@@ -53,8 +53,8 @@ Yii::$app->language = 'en'
                     <div class="col-6 col-md-4 order-3 order-md-3 text-right">
                         <div class="site-top-icons">
                             <ul>
-                                <li><a href="twitter.com"><i class="fab fa-twitter-square icon"></i></a></li>
-                                <li><a href="facebook.com"><i class="fab fa-facebook-square icon"></i></a></li>
+                                <li><a href="https://twitter.com"><i class="fab fa-twitter-square icon"></i></a></li>
+                                <li><a href="https://facebook.com"><i class="fab fa-facebook-square icon"></i></a></li>
                                 <li><a href="<?= \yii\helpers\Url::to('@web') ?>/favorites"><i class="fas fa-heart icon"></i></a></li>
                                 <li>
                                     <a href="<?= \yii\helpers\Url::to('@web') ?>/cart" class="site-cart">
@@ -169,7 +169,7 @@ Yii::$app->language = 'en'
             <div class="col-md-12">
                 <p>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All rights reserved | This website is made by <i class="icon-heart" aria-hidden="true"></i> by <a href="#" target="_blank" class="text-primary">Rafeyel Khachatryan</a>
+                    Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is made by <i class="icon-heart" aria-hidden="true"></i> by <a href="#" target="_blank" class="text-primary">Rafeyel Khachatryan</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>

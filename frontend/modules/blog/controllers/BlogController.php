@@ -9,6 +9,7 @@
 namespace frontend\modules\blog\controllers;
 
 use common\models\Product;
+use Yii;
 use frontend\modules\blog\models\Articles;
 use frontend\modules\blog\models\Comments;
 use yii\data\Pagination;
@@ -28,7 +29,7 @@ class BlogController extends Controller
         return $this->render('index', ['info' => $articles, 'pagination' => $pagination]);
     }
 
-    public function actionArticle($id = '')
+    public function actionArticle($id = 0)
     {
         $article = Articles::find()->with(['comments' => function ($article) {
             $article->with(['user']);
@@ -36,14 +37,20 @@ class BlogController extends Controller
 
         $model = new Comments();
 
-        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
+        $model->user_id = Yii::$app->user->id;
+        $model->article_id = $id;
+//        $model->message = Yii::$app->request->post('message');
+//
+//        var_dump($model);
+//        die;
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->save()) {
-                return $this->refresh();
+                $model = new Comments();
             }
         }
 
         return $this->render('article', ['messages' => $article, 'model' => $model]);
     }
-
 
 }

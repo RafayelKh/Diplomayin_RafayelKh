@@ -3,16 +3,20 @@
 namespace frontend\modules\blog\models;
 
 use common\models\User;
+use frontend\modules\blog\models\Articles;
 use Yii;
 
 /**
  * This is the model class for table "comments".
  *
  * @property int $id
+ * @property int $user_id
  * @property int $article_id
- * @property string $title
- * @property string $content
- * @property string $date
+ * @property string $message
+ * @property string $created_at
+ *
+ * @property Articles $article
+ * @property User $user
  */
 class Comments extends \yii\db\ActiveRecord
 {
@@ -30,11 +34,12 @@ class Comments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'article_id', 'title', 'content'], 'required'],
-            [['id', 'article_id'], 'integer'],
-            [['content'], 'string'],
-            [['date'], 'safe'],
-            [['title'], 'string', 'max' => 255],
+            [['user_id', 'article_id', 'message'], 'required'],
+            [['user_id', 'article_id'], 'integer'],
+            [['created_at'], 'safe'],
+            [['message'], 'string', 'max' => 255],
+            [['article_id'], 'exist', 'skipOnError' => true, 'targetClass' => Articles::className(), 'targetAttribute' => ['article_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -45,14 +50,26 @@ class Comments extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'user_id' => 'User ID',
             'article_id' => 'Article ID',
-            'title' => 'Title',
-            'content' => 'Content',
-            'date' => 'Date',
+            'message' => 'Message',
+            'created_at' => 'Created At',
         ];
     }
 
-    public function getUser(){
-        return $this->hasOne(User::className(),['id' => 'user_id']);
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArticle()
+    {
+        return $this->hasOne(Articles::className(), ['id' => 'article_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

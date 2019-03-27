@@ -38,18 +38,26 @@ class BlogController extends Controller
     public function actionAdd($id)
     {
 
-    $add = new Comments();
+    $model = new Comments();
 
     if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            $get_post = Yii::$app->request;
-            $add->article_id = $id;
-            $add->title = $get_post->post('title');
-            $add->content = $get_post->post('content');
-            $add->save();
+        $info = Articles::find()->where(['id' => $id])->asArray()->one();
+        $messages = Comments::find()->where(['article_id' => $id])->asArray()->all();
+        $post = Yii::$app->request->post('first_name');
+
+        $get_post = Yii::$app->request->post();
+        $model->article_id = $id;
+        $model->title = $get_post->post('title');
+        $model->content = $get_post->post('content');
+
+        echo '<pre>';
+        var_dump($model);
+        die;
+        $model->save();
             
         };
 
-        return $this->refresh();
+        return $this->render('article', ['info' => $info,'messages' => $messages,'post' => $post, 'model' => $model]);
     }
 }

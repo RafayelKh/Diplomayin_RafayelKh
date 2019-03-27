@@ -34,6 +34,7 @@
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Products', 'icon' => 'file-code-o', 'url' => ['/product']],
                     ['label' => 'Users', 'icon' => 'file-code-o', 'url' => ['/user']],
+                    ['label' => 'Coupon Control', 'icon' => 'file-code-o', 'url' => ['/coupon']],
                     ['label' => 'Brand', 'icon' => 'file-code-o', 'url' => ['/brand']],
                     ['label' => 'Categories', 'icon' => 'file-code-o', 'url' => ['/categories']],
                     ['label' => 'Articles', 'icon' => 'file-code-o', 'url' => ['/article']],

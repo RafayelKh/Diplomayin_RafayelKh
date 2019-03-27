@@ -19,12 +19,13 @@ use frontend\modules\product\models\Prodcomment;
  */
 class ProductsController extends Controller
 {
-    public function actionIndex($cat_id = 0)
+    public function actionIndex($cat_id = 0,$br_id = 0)
     {
 
         $product = Product::find()->with(['brand', 'cat']);
         $search = Yii::$app->request->get('s');
         $cat = Categories::find()->limit(3)->asArray()->all();
+        $brands = Brand::find()->limit(3)->asArray()->all();
 
         $pagination = new Pagination(['totalCount' => $product->count(),'pageSize' => 6]);
 
@@ -34,11 +35,14 @@ class ProductsController extends Controller
         if (!empty($cat_id)){
             $product = $product->where(['cat_id' => $cat_id]);
         }
+        if (!empty($br_id)){
+            $product = $product->where(['brand_id' => $br_id]);
+        }
 
         $product = $product->offset($pagination->offset)->limit($pagination->limit);
         $product = $product->asArray()->all();
 
-        return $this->render('index',['product' => $product,'cat' => $cat, 'pagination' => $pagination]);
+        return $this->render('index',['product' => $product,'cat' => $cat, 'pagination' => $pagination,'brands' => $brands]);
 
     }
 
