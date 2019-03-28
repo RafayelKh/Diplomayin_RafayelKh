@@ -30,12 +30,11 @@
                                         id="dropdownMenuReference" data-toggle="dropdown">Reference
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                                    <a class="dropdown-item" href="#">Relevance</a>
-                                    <a class="dropdown-item" href="#">Name, A to Z</a>
-                                    <a class="dropdown-item" href="#">Name, Z to A</a>
+                                    <a class="dropdown-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/newBeginning">New products at the beginning</a>
+                                    <a class="dropdown-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/newEnd">New products at the end</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Price, low to high</a>
-                                    <a class="dropdown-item" href="#">Price, high to low</a>
+                                    <a class="dropdown-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/lowHigh">Price, low to high</a>
+                                    <a class="dropdown-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/highLow">Price, high to low</a>
                                 </div>
                             </div>
                         </div>

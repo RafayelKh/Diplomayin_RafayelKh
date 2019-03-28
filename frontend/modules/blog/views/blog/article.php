@@ -50,21 +50,12 @@ use yii\bootstrap\ActiveForm;
                         <a href="#"><i class="fa fa-envelope"></i></a>
                     </div>
                 </div>
-
-                <!-- ad -->
-                <div class="section-row text-center">
-                    <a href="#" style="display: inline-block;margin: auto;">
-                        <img class="img-responsive" src="<?= \yii\helpers\Url::to('@web') ?>/images/ad-2.jpg" alt="">
-                    </a>
-                </div>
-                <!-- ad -->
-
                 <!-- author -->
                 <div class="section-row">
                     <div class="post-author">
                         <div class="media">
                             <div class="media-left">
-                                <img class="media-object" src="<?= \yii\helpers\Url::to('@web') ?>/img/author.png"
+                                <img style="width: 150px" class="media-object" src="<?= \yii\helpers\Url::to('@web') ?>/images/men.jpg"
                                      alt="">
                             </div>
                             <div class="media-body">
@@ -73,7 +64,9 @@ use yii\bootstrap\ActiveForm;
                                 </div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    exercitatio                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    n ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                             </div>
                         </div>
                     </div>
@@ -119,10 +112,15 @@ use yii\bootstrap\ActiveForm;
             </div>
 
             <?php
-            $form = ActiveForm::begin(); ?>
-            <?= $form->field($model, 'message')->label('Message') ?>
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
-            <?php ActiveForm::end(); ?>
+            if(!Yii::$app->user->isGuest) {
+                $form = ActiveForm::begin(); ?>
+                <?= $form->field($model, 'message')->label('Message') ?>
+                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+                <?php ActiveForm::end();
+            }else{
+                echo '<br><h2>Login or Sign up for write a comment</h2>';
+            }
+            ?>
         </div>
         <!-- /reply -->
     </div>

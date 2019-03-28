@@ -9,6 +9,8 @@ use common\models\CouponCodes;
 use common\models\Product;
 use common\models\Cart;
 use yii\base\InvalidParamException;
+use yii\base\Security;
+use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -20,6 +22,9 @@ class CartController extends Controller
 {
     public function actionIndex($id = 0, $remove_id = 0)
     {
+        if (Yii::$app->user->isGuest){
+            return $this->redirect(Url::to('@web'));
+        }
         $user_id = Yii::$app->user->id;
 
         if (!empty($remove_id)) {
@@ -65,19 +70,11 @@ class CartController extends Controller
         $prods = Cart::find()->with('prod')->where(['user_id' => Yii::$app->user->id])->asArray()->all();
         $model = new CouponCodes();
         $modelInp = new OrderList();
-
-        if ($modelInp->load(Yii::$app->request->post()) && $modelInp->validate()){
-
-        }
+        $full = '';
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $code_finding = CouponCodes::find()->where(['code' => $model->code])->asArray()->one();
-        }
-
-        if ($model->qty == 0) {
-            $model->is_active = 0;
-        } else {
-            $model->qty = $model->qty - 1;
+            $code = CouponCodes::find()->where(['code' => $model->code])->asArray()->one();
+            $del = CouponCodes::find()->where(['code' => $model->code])->one()->delete();
         }
 
         $coupon = 15;
@@ -99,7 +96,23 @@ class CartController extends Controller
         }
         $all_price = $all_price - $subprice;
 
-        return $this->render('checkout', ['prods' => $prods, 'all_price' => $all_price, 'subtotal' => $subtotalprice, 'model' => $model, 'modelInp' => $modelInp]);
+        $modelInp->user_id = Yii::$app->user->id;
+        if (!empty($prods)){
+            if ($modelInp->load(Yii::$app->request->post()) && $modelInp->validate()){
+                if ($modelInp->save()){
+                    $security = new Security();
+                    $full = $security->generateRandomString(4);
+                    $model->code = $full;
+                    $model->save();
+                    $del_cart_prods = Cart::deleteAll(['user_id' => Yii::$app->user->id]);
+
+                    return $this->render('thankyou', ['randkey' => $full]);
+                }
+            }
+        }
+
+
+        return $this->render('checkout', ['prods' => $prods, 'all_price' => $all_price, 'subtotal' => $subtotalprice, 'model' => $model, 'modelInp' => $modelInp,'randkey' => $full]);
     }
 
 }

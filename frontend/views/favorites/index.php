@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'Image',
                 'value' => function ($product) {
-                    return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/products/'. $product['prod']['image']), ['width' => '80px']);
+                    return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/products/' . $product['prod']['image']), ['width' => '80px']);
                 }
             ],
             [

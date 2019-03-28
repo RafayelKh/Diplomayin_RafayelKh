@@ -21,7 +21,7 @@ class BlogController extends Controller
     public function actionIndex()
     {
         $articles = Articles::find();
-        $pagination = new Pagination(['totalCount' => $articles->count(), 'pageSize' => 1]);
+        $pagination = new Pagination(['totalCount' => $articles->count(), 'pageSize' => 3]);
 
         $articles = $articles->offset($pagination->offset)->limit($pagination->limit);
         $articles = $articles->asArray()->all();

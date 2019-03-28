@@ -19,7 +19,7 @@ use frontend\modules\product\models\Prodcomment;
  */
 class ProductsController extends Controller
 {
-    public function actionIndex($cat_id = 0,$br_id = 0)
+    public function actionIndex($cat_id = 0,$br_id = 0,$action = 0)
     {
 
         $product = Product::find()->with(['brand', 'cat']);
@@ -37,6 +37,18 @@ class ProductsController extends Controller
         }
         if (!empty($br_id)){
             $product = $product->where(['brand_id' => $br_id]);
+        }
+        if ($action == 'newBeginning'){
+            $product = $product->orderBy(['date_upload' => SORT_DESC]);
+        }
+        if ($action == 'newEnd'){
+            $product = $product->orderBy(['date_upload' => SORT_ASC]);
+        }
+        if ($action == 'lowHigh'){
+            $product = $product->orderBy(['price' => SORT_ASC]);
+        }
+        if ($action == 'highLow'){
+            $product = $product->orderBy(['price' => SORT_DESC]);
         }
 
         $product = $product->offset($pagination->offset)->limit($pagination->limit);

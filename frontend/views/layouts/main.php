@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use yii\helpers\Html;
@@ -55,16 +56,27 @@ Yii::$app->language = 'en'
                             <ul>
                                 <li><a href="https://twitter.com"><i class="fab fa-twitter-square icon"></i></a></li>
                                 <li><a href="https://facebook.com"><i class="fab fa-facebook-square icon"></i></a></li>
-                                <li><a href="<?= \yii\helpers\Url::to('@web') ?>/favorites"><i class="fas fa-heart icon"></i></a></li>
+                                <li><a href="<?= \yii\helpers\Url::to('@web') ?>/favorites"><i
+                                                class="fas fa-heart icon"></i></a></li>
                                 <li>
-                                    <a href="<?= \yii\helpers\Url::to('@web') ?>/cart" class="site-cart">
-                                        <span class="icon icon-shopping_cart">
-                                            <i class="fas fa-shopping-cart"></i>
-<!--                                            <span class="count">--><?//= $cart ?><!--</span>-->
+                                    <?php if (!Yii::$app->user->isGuest) { ?>
+                                        <a href="<?= \yii\helpers\Url::to('@web') ?>/cart" class="site-cart">
+                                        <span class="icon-shopping_cart">
+                                            <i class="fas fa-shopping-cart icon"></i>
                                         </span>
-                                    </a>
+                                        </a>
                                 </li>
-                                <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
+                                <li>
+                                        <a href="<?= \yii\helpers\Url::to('@web') ?>/user" class="site-cart">
+                                        <span class=" icon-shopping_cart">
+                                            <i class="fas fa-user icon"></i>
+                                        </span>
+                                        </a>
+                                    <?php } ?>
+
+                                <li class="d-inline-block d-md-none ml-md-0"><a href="#"
+                                                                                class="site-menu-toggle js-menu-toggle"><span
+                                                class="icon-menu"></span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -80,16 +92,22 @@ Yii::$app->language = 'en'
                     $menuItems = [
                         ['label' => Yii::t('app', 'home'), 'url' => ['/']],
                         ['label' => Yii::t('app', 'about'), 'url' => ["/about-us"]],
-                        ['label' => Yii::t('app', 'contact'), 'url' => ['/contact']],
-                        ['label' => Yii::t('app', 'cart'), 'url' => ['/cart']],
-                        ['label' => Yii::t('app', 'shop'), 'url' => ['/shop']],
-                        ['label' => Yii::t('app', 'blog'), 'url' => ['/blog']],
+                        ['label' => Yii::t('app', 'contact'), 'url' => ['/contact']]
+                    ];
+                    if (!Yii::$app->user->isGuest) {
+                        $menuItems[] = ['label' => Yii::t('app', 'cart'), 'url' => ['/cart']];
+                    }
+                    $menuItems[] = [
+                        'label' => Yii::t('app', 'shop'), 'url' => ['/shop'],
+                    ];
+                    $menuItems[] = [
+                        'label' => Yii::t('app', 'blog'), 'url' => ['/blog'],
                     ];
                     if (Yii::$app->user->isGuest) {
                         $menuItems[] = ['label' => Yii::t('app', 'sign_in'), 'url' => ['/site/login']];
                         $menuItems[] = ['label' => Yii::t('app', 'sign_up'), 'url' => ['/site/signup']];
                     } else {
-                        $menuItems[] = ['label' => Yii::t('app', 'logout'),'linkOptions' => ['data-method' => 'post'], 'url' => ['/site/logout',]];
+                        $menuItems[] = ['label' => Yii::t('app', 'logout'), 'linkOptions' => ['data-method' => 'post'], 'url' => ['/site/logout',]];
                     }
                     echo Nav::widget([
                         'options' => ['class' => 'site-navigation text-right text-md-center'],
@@ -117,14 +135,19 @@ Yii::$app->language = 'en'
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <ul class="list-unstyled">
-                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>/shop"><?= Yii::t('app', 'sell_online') ?></a></li>
-                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>/shop"><?= Yii::t('app', 'featured') ?></a></li>
+                            <li>
+                                <a href="<?= \yii\helpers\Url::to('@web') ?>/shop"><?= Yii::t('app', 'sell_online') ?></a>
+                            </li>
+                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>/shop"><?= Yii::t('app', 'featured') ?></a>
+                            </li>
                             <li><a href="<?= \yii\helpers\Url::to('@web') ?>/cart"><?= Yii::t('app', 'cart') ?></a></li>
                         </ul>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <ul class="list-unstyled">
-                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>/contact"><?= Yii::t('app', 'contact') ?></a></li>
+                            <li>
+                                <a href="<?= \yii\helpers\Url::to('@web') ?>/contact"><?= Yii::t('app', 'contact') ?></a>
+                            </li>
                             <li><a href="<?= \yii\helpers\Url::to('@web') ?>">Dropshipping</a></li>
                             <li><a href="<?= \yii\helpers\Url::to('@web') ?>">Website development</a></li>
                         </ul>
@@ -140,9 +163,10 @@ Yii::$app->language = 'en'
             </div>
             <div style="font-size: 16px" class="col-md-6 col-lg-3 mb-4 mb-lg-0">
                 <h3 class="footer-heading mb-4">Promo</h3>
-                <img src="<?= \yii\helpers\Url::to('@web') ?>/images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
-                    <h3 class="font-weight-light  mb-0">Finding Your Perfect Shoes</h3>
-                    <p>Promo from  nuary 15 &mdash; 25, 2019</p>
+                <img src="<?= \yii\helpers\Url::to('@web') ?>/images/hero_1.jpg" alt="Image placeholder"
+                     class="img-fluid rounded mb-4">
+                <h3 class="font-weight-light  mb-0">Finding Your Perfect Shoes</h3>
+                <p>Promo from nuary 15 &mdash; 25, 2019</p>
             </div>
             <div style="font-size: 16px" class="col-md-6 col-lg-3">
                 <div class="block-5 mb-5">
@@ -159,7 +183,8 @@ Yii::$app->language = 'en'
                         <label for="email_subscribe" class="footer-heading">Subscribe</label>
                         <div class="form-group">
                             <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
-                            <input type="submit" style="height: 43px;margin-top: 20px;" class="btn btn-sm btn-primary" value="Send">
+                            <input type="submit" style="height: 43px;margin-top: 20px;" class="btn btn-sm btn-primary"
+                                   value="Send">
                         </div>
                     </form>
                 </div>
@@ -169,7 +194,10 @@ Yii::$app->language = 'en'
             <div class="col-md-12">
                 <p>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is made by <i class="icon-heart" aria-hidden="true"></i> by <a href="#" target="_blank" class="text-primary">Rafeyel Khachatryan</a>
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This website is made by <i class="icon-heart" aria-hidden="true"></i> by <a
+                            href="#" target="_blank" class="text-primary">Rafeyel Khachatryan</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>

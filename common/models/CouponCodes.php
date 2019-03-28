@@ -9,8 +9,6 @@ use Yii;
  *
  * @property int $id
  * @property string $code
- * @property int $is_active
- * @property int $qty
  */
 class CouponCodes extends \yii\db\ActiveRecord
 {
@@ -29,7 +27,6 @@ class CouponCodes extends \yii\db\ActiveRecord
     {
         return [
             [['code'], 'required'],
-            [['is_active', 'qty'], 'integer'],
             [['code'], 'string', 'max' => 120],
         ];
     }
@@ -42,8 +39,6 @@ class CouponCodes extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'code' => 'Code',
-            'is_active' => 'Is Active',
-            'qty' => 'Qty',
         ];
     }
 }

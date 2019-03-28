@@ -17,7 +17,7 @@ class CouponSearch extends CouponCodes
     public function rules()
     {
         return [
-            [['id', 'is_active', 'qty'], 'integer'],
+            [['id'], 'integer'],
             [['code'], 'safe'],
         ];
     }
@@ -59,8 +59,6 @@ class CouponSearch extends CouponCodes
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'is_active' => $this->is_active,
-            'qty' => $this->qty,
         ]);
 
         $query->andFilterWhere(['like', 'code', $this->code]);

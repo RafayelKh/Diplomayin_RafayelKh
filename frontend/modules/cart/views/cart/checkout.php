@@ -3,7 +3,6 @@
         <div class="row">
 
             <div class="col-md-6">
-                <?php \yii\widgets\ActiveForm::begin(); ?>
                 <div class="row mb-5">
                     <div class="col-md-12">
                         <h2 class="h3 mb-3 text-black">Your Order</h2>
@@ -82,12 +81,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-lg py-3 btn-block"
-                                        onclick="window.location='thankyou.html'">Place Order
-                                </button>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -96,39 +89,50 @@
             <div class="col-md-6 mb-5 mb-md-0">
                 <h2 class="h3 mb-3 text-black">Billing Details</h2>
                 <div class="p-3 p-lg-5 border">
-
+                    <?php $formInp = \yii\widgets\ActiveForm::begin(); ?>
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <?php $form = \yii\widgets\ActiveForm::begin(); ?>
-
-                            <?= $form->field($modelInp, 'address')->textInput() ?>
 
 
+                            <div class="form-group row mb-5">
+                                <div class="col-md-12">
+                                    <?= $formInp->field($modelInp, 'name')->textInput() ?>
+                                </div>
+                                <div class="col-md-12">
+                                    <?= $formInp->field($modelInp, 'surname')->textInput() ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-6">
-                            <?= $form->field($modelInp, 'country')->textInput() ?>
+                        <div class="col-md-12">
+                            <?= $formInp->field($modelInp, 'address')->textInput() ?>
                         </div>
                         <div class="col-md-6">
-                            <?= $form->field($modelInp, 'post_index')->textInput() ?>
+                            <?= $formInp->field($modelInp, 'country')->textInput() ?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $formInp->field($modelInp, 'post_index')->textInput(['type' => 'number']) ?>
                         </div>
                     </div>
 
                     <div class="form-group row mb-5">
                         <div class="col-md-12">
-                            <?= $form->field($modelInp, 'phone')->textInput(['type' => 'number']) ?>
+                            <?= $formInp->field($modelInp, 'phone')->textInput(['type' => 'number']) ?>
                         </div>
                     </div>
 
 
                     <div class="form-group">
-                        <?= $form->field($modelInp, 'address')->textarea(['rows' => 6]) ?>
+                        <?= $formInp->field($modelInp, 'message')->textarea(['rows' => 7]) ?>
+                    </div>
+
+                    <div class="form-group ">
+                        <?= \yii\helpers\Html::submitButton('Send Order', ['class' => 'btn btn-primary btn-lg py-3 btn-block custom-btn']) ?>
                     </div>
 
                     <?php \yii\widgets\ActiveForm::end(); ?>
                 </div>
-                <?php \yii\widgets\ActiveForm::end() ?>
             </div>
         </div>
         <!-- </form> -->
