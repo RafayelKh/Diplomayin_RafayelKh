@@ -1,5 +1,7 @@
 <?php
 namespace  frontend\modules\product\controllers;
+use common\models\Cart;
+use common\models\Image;
 use Yii;
 
 use yii\base\InvalidParamException;
@@ -64,8 +66,9 @@ class ProductsController extends Controller
 
         $one_product = Product::find()->where(['id' => $id])->asArray()->one();
         $product = Product::find()->where(['is_featured' => 1])->limit(3)->asArray()->all();
+        $prod_images = Image::find()->where(['prod_id' => $id])->asArray()->all();
         $comments = Prodcomment::find()->where(['prod_id' => $id])->orderBy(['id' => SORT_DESC])->with(['user'])->asArray()->all();
-
+        $product_model = new Cart();
         
         $model = new Prodcomment();
         $model->user_id = \Yii::$app->user->id;
@@ -74,6 +77,6 @@ class ProductsController extends Controller
             return $this->refresh();
         }
 
-        return $this->render('product',['product' => $one_product,'products' => $product,'comments' => $comments,'model' => $model]);
+        return $this->render('product',['product' => $one_product,'products' => $product,'comments' => $comments,'model' => $model,'prod_model' => $product_model,'images' => $prod_images]);
     }
 }

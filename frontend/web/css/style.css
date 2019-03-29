@@ -589,7 +589,10 @@ a {
     content: "\f0e0"; }
   .block-5 ul li.phone:before {
     content: "\f095"; }
-
+.custom-form{
+  display: inline !important;
+  width: 70%;
+}
 .block-6 {
   display: block; }
   .block-6 img {
@@ -607,8 +610,23 @@ a {
 .custom-btn{
   margin-top: 20px;
 }
+.danger{
+  color: #ff4653;
+}
 .table-custom{
-  border: 1px solid black
+  border: 1px solid black;
+  font-size: 15px;
+  text-align: center;
+}
+.display-flex{
+  width: 20%;
+  height: 150px;
+  border: 1px solid #dee2e6;
+}
+.display-flexo{
+  width: 5%;
+  height: 150px;
+  border: 1px solid #dee2e6;
 }
 .user-name{
   padding-left: 70px;
@@ -617,6 +635,10 @@ a {
 .table-name{
   text-align: center;
   margin-bottom: 20px;
+}
+.small-image{
+  width: 128px;
+  height: 128px;
 }
 .block-7 .btn {
   position: absolute;

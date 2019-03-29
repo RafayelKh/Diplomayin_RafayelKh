@@ -27,15 +27,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'description:ntext',
-            'slug',
-            'cat_id',
-            //'brand_id',
+//            'description:ntext',
+//            'slug',
+            [
+                'attribute' => 'Category',
+                'value' => function ($cat) {
+                    return $cat['cat']['title'];
+                }
+            ],
+            [
+                'attribute' => 'Brand',
+                'value' => function ($cat) {
+                    return $cat['brand']['title'];
+                }
+            ],
             //'price',
             //'sale_price',
             //'is_new',
             //'is_featured',
-            //'stock',
+            'stock',
             //'parent_id',
             //'options:ntext',
             //'image',

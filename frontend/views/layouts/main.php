@@ -39,7 +39,7 @@ Yii::$app->language = 'en'
                         <form action="<?= \yii\helpers\Url::to('@web') ?>/shop" class="site-block-top-search">
                             <span class="icon icon-search2"></span>
                             <form action="<?= \yii\helpers\Url::to('@web') ?>/shop">
-                                <input type="text" name="s" class="form-control border-0" placeholder="Search">
+                                <input type="text" name="s" class="form-control custom-form border-0" placeholder="Search">
                                 <button class="btn btn-sm btn-primary">></button>
                             </form>
                         </form>

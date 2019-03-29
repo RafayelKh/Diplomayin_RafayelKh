@@ -1,8 +1,85 @@
+<?php
+//var_dump($all_price);
+//var_dump($subtotal);
+//die;
+?>
+
 <div style="font-size: 15px" class="site-section">
     <div class="container">
-        <div class="row">
-
+        <div class="col-mb-6">
             <div class="col-md-6">
+                <h2 class="h3 mb-3 text-black">Coupon Code</h2>
+                <div class="p-3 p-lg-5 border">
+
+                    <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
+                    <div class="input-group w-75">
+                        <?php $form = \yii\widgets\ActiveForm::begin(); ?>
+
+                        <?= $form->field($model, 'code')->textInput() ?>
+
+                        <p class="danger"><?php if (!empty($mes)){echo "$mes"; } ?></p>
+
+                        <div class="form-group">
+                            <?= \yii\helpers\Html::submitButton('Apply', ['class' => 'btn btn-sm btn-primary custom-btn']) ?>
+                        </div>
+
+                        <?php \yii\widgets\ActiveForm::end(); ?>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-5 mb-md-0">
+            <h2 class="h3 mb-3 text-black">Billing Details</h2>
+            <div class="p-3 p-lg-5 border">
+                <?php $formInp = \yii\widgets\ActiveForm::begin(); ?>
+                <div class="form-group row">
+                    <div class="col-md-12">
+
+
+                        <div class="form-group row mb-5">
+                            <div class="col-md-12">
+                                <?= $formInp->field($modelInp, 'name')->textInput() ?>
+                            </div>
+                            <div class="col-md-12">
+                                <?= $formInp->field($modelInp, 'surname')->textInput() ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <?= $formInp->field($modelInp, 'address')->textInput() ?>
+                    </div>
+                    <div class="col-md-6">
+                        <?= $formInp->field($modelInp, 'country')->textInput() ?>
+                    </div>
+                    <div class="col-md-6">
+                        <?= $formInp->field($modelInp, 'post_index')->textInput(['type' => 'number']) ?>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <div class="col-md-12">
+                        <?= $formInp->field($modelInp, 'phone')->textInput(['type' => 'number']) ?>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <?= $formInp->field($modelInp, 'message')->textarea(['rows' => 7]) ?>
+                </div>
+
+                <div class="form-group ">
+                    <?= \yii\helpers\Html::submitButton('Send Order', ['class' => 'btn btn-primary btn-lg py-3 btn-block custom-btn']) ?>
+                </div>
+
+                <?php \yii\widgets\ActiveForm::end(); ?>
+            </div>
+        </div>
+        <div style="margin-top: -400px /*gitem vor minusov chisht che, bayc urish elq chgta*/" class="col-md-6">
+
+            <div class="col-md-12">
                 <div class="row mb-5">
                     <div class="col-md-12">
                         <h2 class="h3 mb-3 text-black">Your Order</h2>
@@ -86,76 +163,7 @@
                 </div>
 
             </div>
-            <div class="col-md-6 mb-5 mb-md-0">
-                <h2 class="h3 mb-3 text-black">Billing Details</h2>
-                <div class="p-3 p-lg-5 border">
-                    <?php $formInp = \yii\widgets\ActiveForm::begin(); ?>
-                    <div class="form-group row">
-                        <div class="col-md-12">
-
-
-                            <div class="form-group row mb-5">
-                                <div class="col-md-12">
-                                    <?= $formInp->field($modelInp, 'name')->textInput() ?>
-                                </div>
-                                <div class="col-md-12">
-                                    <?= $formInp->field($modelInp, 'surname')->textInput() ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <?= $formInp->field($modelInp, 'address')->textInput() ?>
-                        </div>
-                        <div class="col-md-6">
-                            <?= $formInp->field($modelInp, 'country')->textInput() ?>
-                        </div>
-                        <div class="col-md-6">
-                            <?= $formInp->field($modelInp, 'post_index')->textInput(['type' => 'number']) ?>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-5">
-                        <div class="col-md-12">
-                            <?= $formInp->field($modelInp, 'phone')->textInput(['type' => 'number']) ?>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <?= $formInp->field($modelInp, 'message')->textarea(['rows' => 7]) ?>
-                    </div>
-
-                    <div class="form-group ">
-                        <?= \yii\helpers\Html::submitButton('Send Order', ['class' => 'btn btn-primary btn-lg py-3 btn-block custom-btn']) ?>
-                    </div>
-
-                    <?php \yii\widgets\ActiveForm::end(); ?>
-                </div>
-            </div>
         </div>
         <!-- </form> -->
-        <div class="row mb-5">
-            <div class="col-md-6">
-                <h2 class="h3 mb-3 text-black">Coupon Code</h2>
-                <div class="p-3 p-lg-5 border">
-
-                    <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
-                    <div class="input-group w-75">
-                        <?php $form = \yii\widgets\ActiveForm::begin(); ?>
-
-                        <?= $form->field($model, 'code')->textInput() ?>
-
-                        <div class="form-group">
-                            <?= \yii\helpers\Html::submitButton('Apply', ['class' => 'btn btn-sm btn-primary custom-btn']) ?>
-                        </div>
-
-                        <?php \yii\widgets\ActiveForm::end(); ?>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
 </div>

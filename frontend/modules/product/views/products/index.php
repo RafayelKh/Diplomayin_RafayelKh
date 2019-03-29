@@ -50,8 +50,8 @@
                     foreach ($product as $item) { ?>
 
                         <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                            <div class="block-4 text-center border">
-                                <figure class="block-4-image">
+                            <div style="height: 430px" class="block-4 text-center border">
+                                <figure style="height: 300px" class="block-4-image">
                                     <?php if (!empty($item['image'])) { ?>
                                             <a href="shop/prod/<?= $item['id'] ?>"><img style="width: 261px"
                                                 src="<?= \yii\helpers\Url::to('@web') ?>/images/products/<?= $item['image'] ?>"

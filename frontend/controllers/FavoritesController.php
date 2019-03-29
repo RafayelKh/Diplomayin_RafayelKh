@@ -121,16 +121,19 @@ class FavoritesController extends Controller
         $searchModel = new FavoritesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $model->save(false);
-        $model = new Favorites();
+        $x = Favorites::find()->where(['user_id' => Yii::$app->user->id])->andWhere(['prod_id' => $id])->asArray()->one();
 
+        if (!empty($x)) {
+            ///////////////////////////////////////////////////////////dont work
+            $model->save(false);
+            $model = new Favorites();
+        }else {
+            $prods = Favorites::find()->where(['user_id' => Yii::$app->user->id])->asArray()->all();
 
-        $prods = Favorites::find()->where(['user_id' => Yii::$app->user->id])->asArray()->all();
-
-
-        return $this->render('index', ['prods' => $prods,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,]);
+            return $this->render('index', ['prods' => $prods,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,]);
+        }
     }
 
 
@@ -166,6 +169,7 @@ class FavoritesController extends Controller
     function actionDelete($id)
     {
         $del_item = Favorites::find()->where(['prod_id' => $id])->andWhere(['user_id' => Yii::$app->user->id])->one();
+        $del_item->delete();
 
         return $this->redirect(['index']);
     }

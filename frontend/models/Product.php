@@ -2,6 +2,11 @@
 
 namespace app\models;
 
+use common\models\Image;
+use frontend\modules\product\models\Brand;
+use frontend\modules\product\models\Categories;
+use frontend\modules\product\models\Reviews;
+use frontend\modules\product\models\Variants;
 use Yii;
 
 /**
