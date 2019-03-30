@@ -640,6 +640,49 @@ a {
   width: 128px;
   height: 128px;
 }
+.newsletter {
+  background: #ECECEC;
+  height: 200px;
+  padding-top: 50px;
+}
+.newsletter h3,.newsletter h2{
+  margin-bottom:5px;
+  text-align:left;
+  color:#000;
+  font-size:40px;
+}
+.w3agile_newsletter_right input[type="email"] {
+  outline: none;
+  padding: 10px;
+  color: #212121;
+  font-size: 14px;
+  width: 70%;
+  background: #fff;
+  border: 1px solid #DBDBDB;
+  float: left;
+}
+.w3agile_newsletter_left{
+  width: 50%;
+  float: left;
+  padding-left: 270px;
+  font-size: 14px;
+}
+.w3agile_newsletter_right {
+  width: 50%;
+  float: left;
+  padding-left: 200px;
+}
+.w3agile_newsletter_right input[type="submit"] {
+  outline: none;
+  padding: 10px 0;
+  width: 15%;
+  border: none;
+  background-color: #00e58b;
+  color:#fff;
+}
+.w3agile_newsletter_right input[type="submit"]:hover{
+  background:#000;
+}
 .block-7 .btn {
   position: absolute;
   width: 80px;

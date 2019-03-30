@@ -26,8 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'Image',
+                'format' => 'raw',
                 'value' => function ($product) {
-                    return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/products/' . $product['prod']['image']), ['width' => '80px']);
+        if (!empty($product['prod']['image'])){
+            return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/products/' . $product['prod']['image']), ['width' => '80px']);
+        }else{
+            return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/default.jpg'), ['width' => '80px']);
+        }
+                    
                 }
             ],
             [

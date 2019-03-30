@@ -44,8 +44,10 @@ class CartController extends Controller
                 $cart = new Cart();
                 $cart->prod_id = $id;
                 $cart->user_id = $user_id;
-                $cart->qty = 1;
-                $cart->save();
+                if($cart->load(Yii::$app->request->post())){
+                    var_dump($cart);
+                    $cart->save();
+                }
             }
 
             $prods = Cart::find()->with('prod')->where(['user_id' => Yii::$app->user->id])->asArray()->all();
@@ -61,16 +63,12 @@ class CartController extends Controller
                     $all_price = $all_price + $item['prod']['price'] * $item['qty'];
                 }
             }
+            $cartQty = Cart::find()->where(['user_id' => Yii::$app->user->id])->asArray()->all();
+            $qty = new Cart();
 
-            return $this->render('index', ['prods' => $prods, 'all_price' => $all_price]);
+            return $this->render('index', ['prods' => $prods,'prod_qty' => $cartQty,'qty' => $qty,'all_price' => $all_price]);
         }
         return $this->render('index', ['mes' => 'Cart is empty']);
-//        else{
-//            $cookies = Yii::$app->request->cookies('cart');
-//            if (!empty($cookies)){
-//
-//            }
-//         }
     }
 
     public function actionCheckout()

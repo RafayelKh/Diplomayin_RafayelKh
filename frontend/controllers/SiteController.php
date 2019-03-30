@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use app\models\Cart;
+use common\models\Newsletter;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
@@ -79,8 +80,15 @@ class SiteController extends Controller
         $prods = Product::find()->orderBy(['date_upload' => SORT_DESC])->asArray()->all();
         $categories = Categories::find()->limit(3)->asArray()->all();
         $cart_count = Cart::find()->where(['user_id' => Yii::$app->user->id])->count('id');
+        $news = new Newsletter();
 
-        return $this->render('index', ['prods' => $prods, 'categories' => $categories, 'cart' => $cart_count]);
+        if ($news->load(Yii::$app->request->post()) && $news->validate()){
+            $news->save();
+        }
+
+
+
+        return $this->render('index', ['prods' => $prods, 'categories' => $categories, 'cart' => $cart_count, 'news' => $news]);
     }
 
     public function actionCheckout()

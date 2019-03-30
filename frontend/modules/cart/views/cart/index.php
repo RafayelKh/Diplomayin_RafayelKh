@@ -1,10 +1,6 @@
 <?php
 // echo "<pre>";
-// var_dump($prods);
-// die;
-
-// echo "<pre>";
-// var_dump($cart);
+// var_dump($prod_qty);
 // die;
 ?>
 <div class="site-section">
@@ -57,20 +53,9 @@
                                     </td>
                                     <td>
                                         <div class="input-group mb-3" style="max-width: 120px;">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-primary js-btn-minus" type="button">
-                                                    &minus;
-                                                </button>
-                                            </div>
-                                            <input type="text" class="form-control text-center"
-                                                   value="<?= $row['qty'] ?>"
-                                                   placeholder="" aria-label="Example text with button addon"
-                                                   aria-describedby="button-addon1">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-primary js-btn-plus" type="button">
-                                                    &plus;
-                                                </button>
-                                            </div>
+                                            <?php $count = \yii\widgets\ActiveForm::begin(); ?>
+                                               <?= $count->field($qty, 'qty')->textInput(['value' => $row['qty']]) ?>
+                                            <?php \yii\widgets\ActiveForm::end(); ?>
                                         </div>
                                     </td>
                                     <td><h2>$<?= $row['prod']['price'] * $row['qty'] ?></h2></td>

@@ -69,11 +69,14 @@ class ProductsController extends Controller
         $prod_images = Image::find()->where(['prod_id' => $id])->asArray()->all();
         $comments = Prodcomment::find()->where(['prod_id' => $id])->orderBy(['id' => SORT_DESC])->with(['user'])->asArray()->all();
         $product_model = new Cart();
+
         
         $model = new Prodcomment();
         $model->user_id = \Yii::$app->user->id;
         $model->prod_id = $id;
         if($model->load(\Yii::$app->request->post()) && $model->save()){
+            var_dump($model);
+            die;
             return $this->refresh();
         }
 
