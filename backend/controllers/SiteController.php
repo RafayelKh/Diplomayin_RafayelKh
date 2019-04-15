@@ -1,6 +1,10 @@
 <?php
 namespace backend\controllers;
 
+use common\models\Contact;
+use common\models\Product;
+use common\models\User;
+use frontend\modules\blog\models\Articles;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -60,7 +64,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $last_message = Contact::find()->orderBy(['date' => SORT_DESC])->limit(1)->asArray()->one();
+        $last_product = Product::find()->orderBy(['date_upload' => SORT_DESC])->limit(1)->asArray()->one();
+        $last_blog = Articles::find()->orderBy(['created_at' => SORT_DESC])->limit(1)->asArray()->one();
+
+        return $this->render('index',['last_mes' => $last_message,'item' => $last_product,'blog' => $last_blog]);
     }
 
     /**
@@ -76,7 +84,16 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            $admin_checking = User::find()->where(['username' => $model['username']])->andWhere(['is_admin' => 1])->asArray()->one();
+            if (!empty($admin_checking)){
+                return $this->goBack();
+            }else{
+                $model->password = '';
+
+                return $this->render('login', [
+                    'model' => $model,
+                ]);
+            }
         } else {
             $model->password = '';
 

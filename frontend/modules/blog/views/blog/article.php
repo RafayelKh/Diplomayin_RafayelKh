@@ -13,10 +13,18 @@ use yii\bootstrap\ActiveForm;
             <div class="col-md-12">
                 <div class="section-row sticky-container">
                     <div class="main-post">
-                        <h3><?= $messages['title'] ?></h3>
+                        <h1><?= $messages['title'] ?></h1>
                         <figure class="figure-img">
-                            <img style="width: 450px" class="img-responsive" src="<?= \yii\helpers\Url::to('@web') ?>/images/blog.jpg"
-                                 alt="">
+                            <?php if (!empty($item['image'])) { ?>
+                                <img style="width: 321px;margin-left: 30px"
+                                     src="<?= \yii\helpers\Url::to('@web') ?>/images/articles/<?= $item['image'] ?>"
+                                     alt="Image"
+                                     class="img-fluid">
+                            <?php } else { ?>
+                                <img src="<?= \yii\helpers\Url::to('@web') ?>/images/article_default.jpg"
+                                     alt="Image placeholder"
+                                     class="img-fluid">
+                            <?php } ?>
                             <figcaption>So Lorem Ipsum is bad (not necessarily)</figcaption>
                         </figure>
                         <blockquote class="blockquote">
@@ -41,17 +49,9 @@ use yii\bootstrap\ActiveForm;
                             on it. They will be drawn to it, fiercely. Do it the wrong way and draft copy can derail
                             your design review.</p>
                     </div>
-                    <div class="post-shares sticky-shares">
-                        <a href="#" class="share-facebook"><i class="fa fa-facebook"></i></a>
-                        <a href="#" class="share-twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="#" class="share-google-plus"><i class="fa fa-google-plus"></i></a>
-                        <a href="#" class="share-pinterest"><i class="fa fa-pinterest"></i></a>
-                        <a href="#" class="share-linkedin"><i class="fa fa-linkedin"></i></a>
-                        <a href="#"><i class="fa fa-envelope"></i></a>
-                    </div>
                 </div>
                 <!-- author -->
-                <div class="section-row">
+                <div class="section-row" style="margin-top: 50px">
                     <div class="post-author">
                         <div class="media">
                             <div class="media-left">
@@ -74,9 +74,9 @@ use yii\bootstrap\ActiveForm;
                 <!-- /author -->
 
                 <!-- comments -->
-                <div class="section-row">
+                <div class="section-row" style="margin-top: 25px">
                     <div class="section-title">
-                        <h2><?= count($messages) ?> Comments</h2>
+                        <h2><?= count($messages['comments']) ?> Comments</h2>
                     </div>
 
                     <div class="post-comments">

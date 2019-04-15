@@ -50,22 +50,22 @@
                     foreach ($product as $item) { ?>
 
                         <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                            <div style="height: 430px" class="block-4 text-center border">
+                            <div style="height: 500px" class="block-4 text-center border">
                                 <figure style="height: 300px" class="block-4-image">
                                     <?php if (!empty($item['image'])) { ?>
-                                            <a href="shop/prod/<?= $item['id'] ?>"><img style="width: 261px"
+                                            <a href="shop/prod/<?= $item['slug'] ?>"><img style="width: 261px"
                                                 src="<?= \yii\helpers\Url::to('@web') ?>/images/products/<?= $item['image'] ?>"
                                                 alt="Image placeholder" class="img-fluid"></a>
                                     <?php }else{ ?>
-                                        <a href="shop/prod/<?= $item['id'] ?>"><img
+                                        <a href="shop/prod/<?= $item['slug'] ?>"><img
                                                     src="<?= \yii\helpers\Url::to('@web') ?>/images/default.jpg"
                                                     alt="Image placeholder" class="img-fluid">
                                         </a>
                                     <?php } ?>
                                 </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="<?= \yii\helpers\Url::to('@web') ?>/shop/prod/<?= $item['id'] ?>"><?= $item['title'] ?></a></h3>
-                                    <p class="mb-0">Finding perfect t-shirt</p>
+                                <div style="margin-top: 75px" class="block-4-text p-4">
+                                    <h3><a href="<?= \yii\helpers\Url::to('@web') ?>/shop/prod/<?= $item['slug'] ?>"><?= $item['title'] ?></a></h3>
+                                    <p class="mb-0"><?= $item['description'] ?></p>
                                     <p class="text-primary font-weight-bold">
                                         <?php if (!empty($item['sale_price'])){ ?>
                                               <span style="text-decoration: line-through">$<?= $item['price'] ?></span>
@@ -117,6 +117,14 @@
                         <?php foreach ($brands as $brand) { ?>
                             <a class="dropdown-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/brand/<?= $brand['id'] ?>"><?= $brand['title'] ?></a>
                         <?php } ?>
+                    </ul>
+                </div>
+                <div class="border p-4 rounded mb-4">
+                    <h3 class="mb-3 h6 text-uppercase text-black d-block">Show</h3>
+                    <ul class="list-unstyled mb-0">
+                        <a class="dropdown-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/show/6">6 Products</a>
+                        <a class="dropdown-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/show/12">12 Products</a>
+                        <a class="dropdown-item" href="<?= \yii\helpers\Url::to('@web') ?>/shop/show/24">24 Products</a>
                     </ul>
                 </div>
 

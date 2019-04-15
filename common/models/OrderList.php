@@ -14,8 +14,10 @@ use Yii;
  * @property string $address
  * @property string $post_index
  * @property string $country
- * @property string $phone
+ * @property int $phone
  * @property string $message
+ * @property int $status
+ * @property int $price
  */
 class OrderList extends \yii\db\ActiveRecord
 {
@@ -33,8 +35,8 @@ class OrderList extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'name', 'surname', 'address', 'post_index', 'country', 'phone', 'message'], 'required'],
-            [['user_id', 'phone'], 'integer'],
+            [['user_id', 'name', 'surname', 'address', 'post_index', 'country', 'phone', 'message', 'price'], 'required'],
+            [['user_id', 'phone', 'status', 'price'], 'integer'],
             [['message'], 'string'],
             [['name', 'surname', 'address'], 'string', 'max' => 120],
             [['post_index'], 'string', 'max' => 50],
@@ -57,6 +59,8 @@ class OrderList extends \yii\db\ActiveRecord
             'country' => 'Country',
             'phone' => 'Phone',
             'message' => 'Message',
+            'status' => 'Status',
+            'price' => 'Price',
         ];
     }
 }

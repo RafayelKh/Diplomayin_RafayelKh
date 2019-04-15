@@ -28,12 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'Image',
                 'format' => 'raw',
                 'value' => function ($product) {
-        if (!empty($product['prod']['image'])){
-            return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/products/' . $product['prod']['image']), ['width' => '80px']);
-        }else{
-            return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/default.jpg'), ['width' => '80px']);
-        }
-                    
+                    if (!empty($product['prod']['image'])) {
+                        return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/products/' . $product['prod']['image']), ['width' => '80px']);
+                    } else {
+                        return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/default.jpg'), ['width' => '80px']);
+                    }
+
                 }
             ],
             [
@@ -75,12 +75,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Actions',
                 'headerOptions' => ['width' => '80'],
-                'template' => '{delete} {update} {film}',
+                'template' => '{delete} {film}',
                 'buttons' => [
                     'film' => function ($url, $model, $key) {
-                        $url = \yii\helpers\Url::to(['/favorites/cart/' . $model->id]);
+                        $url = \yii\helpers\Url::to(['/cart' . $model['prod']['id']]);
 
-                        return Html::a('<span class="glyphicon glyphicon-film"></span>', $url);
+                        return Html::a('<span class="glyphicon glyphicon-shopping-cart"></span>', $url);
                     },
                 ],
 

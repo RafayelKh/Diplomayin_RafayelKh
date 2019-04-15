@@ -1,6 +1,8 @@
 <div class="site-section">
     <?php
 //             echo "<pre>";
+//             var_dump($product);
+//             echo "<pre>";
 //             var_dump($images);
 //             die;
     ?>
@@ -8,71 +10,57 @@
         <div class="row">
             <div class="col-md-6">
                 <?php if (!empty($product['image'])) { ?>
-                    <img style="width: 500px;height: auto"
+                    <img style="width: 300px"
                          src="<?= \yii\helpers\Url::to('@web') ?>/images/products/<?= $product['image'] ?>" alt="Image"
                          class="img-fluid">
                 <?php } else { ?>
                     <img src="<?= \yii\helpers\Url::to('@web') ?>/images/default.jpg" alt="Image placeholder"
                          class="img-fluid">
                 <?php } ?>
-                <div class="col-md-8">
-                    <?php
-                    foreach ($images as $image) { ?>
-                        <img style="width: 64px" src="<?= \yii\helpers\Url::to('@web') ?>/images/products/<?= $image['image'] ?>" alt="">
-                    <?php } ?>
-                </div>
+                <br>
+                <?php
+                if(!empty($images)){
+                    foreach ($images as $oneimage){
+                    ?>
+
+                        <img style="width: 80px"
+                             src="<?= \yii\helpers\Url::to('@web') ?>/images/products/<?= $oneimage['image'] ?>" alt="Image"
+                             class="img-fluid">
+                    <?php }
+                    }
+                ?>
             </div>
             <div class="col-md-6">
                 <h2 class="text-black"><?= $product['title'] ?></h2>
                 <p><?= $product['description'] ?></p>
                 <p><strong class="text-primary h4">$<?= $product['price'] ?></strong></p>
-                <div class="mb-1 d-flex">
-                    <label for="option-sm" class="d-flex mr-3 mb-3">
-                        <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio"
-                                                                                                       id="option-sm"
-                                                                                                       name="shop-sizes"></span>
-                        <span class="d-inline-block text-black">Small</span>
-                    </label>
-                    <label for="option-md" class="d-flex mr-3 mb-3">
-                        <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio"
-                                                                                                       id="option-md"
-                                                                                                       name="shop-sizes"></span>
-                        <span class="d-inline-block text-black">Medium</span>
-                    </label>
-                    <label for="option-lg" class="d-flex mr-3 mb-3">
-                        <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio"
-                                                                                                       id="option-lg"
-                                                                                                       name="shop-sizes"></span>
-                        <span class="d-inline-block text-black">Large</span>
-                    </label>
-                    <label for="option-xl" class="d-flex mr-3 mb-3">
-                        <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio"
-                                                                                                       id="option-xl"
-                                                                                                       name="shop-sizes"></span>
-                        <span class="d-inline-block text-black"> Extra Large</span>
-                    </label>
-                </div>
                 <div class="mb-5">
                     <div class="input-group mb-3" style="max-width: 120px;">
-                        <?php $prod_form = \yii\widgets\ActiveForm::begin(); ?>
-                        <?= $prod_form->field($prod_model, 'qty')->textInput(['class' => 'form-control text-center'])->label('Quantity'); ?>
+                        <?php if (!Yii::$app->user->isGuest) { ?>
+                            <?php $qtyForm = \yii\widgets\ActiveForm::begin(); ?>
+
+                            <?= $qtyForm->field($prod_model, 'qty')->textInput(['class' => 'form-control text-center'])->label('Quantity'); ?>
+
+                            <?= $qtyForm->field($prod_model, 'prod_id')->hiddenInput(['value' => $product['id']])->label(''); ?>
+
+
+                            <?php \yii\widgets\ActiveForm::end();
+                        }?>
+
                     </div>
 
                 </div>
 
                 <?php
-
-                if (!Yii::$app->user->isGuest) {
+                if (!Yii::$app->user->isGuest){
                     ?>
                     <p><a class="buy-now btn btn-sm btn-primary"
                           href="<?= \yii\helpers\Url::to('@web') ?>/cart/<?= $product['id'] ?>">Add to Cart</a></p>
                     <?php
-                    \yii\widgets\ActiveForm::end();
                 }
                 ?>
                 <p><a class="buy-now btn btn-sm btn-primary"
-                      href="<?= \yii\helpers\Url::to('@web') ?>/favorites/<?= $product['id'] ?>">Add to Wish List</a>
-                </p>
+                      href="<?= \yii\helpers\Url::to('@web') ?>/favorites/<?= $product['id'] ?>">Add to Wish List</a></p>
             </div>
         </div>
     </div>
@@ -100,17 +88,13 @@
                 ?>
             </ul>
             <?php
-
-
             \yii\widgets\Pjax::end();
-
             ?>
 
         </div>
         <div style="margin-top: 50px;padding-left: 50px;">
             <?php
             }
-
             if (!Yii::$app->user->isGuest) {
                 $form = \yii\bootstrap\ActiveForm::begin();
                 echo $form->field($model, 'content')->textarea(['rows' => '3'])->label('Comment');
@@ -120,7 +104,6 @@
                 echo \yii\helpers\Html::submitButton('Send', ['class' => 'btn']);
                 \yii\bootstrap\ActiveForm::end();
             }
-
             ?>
         </div>
     </div>

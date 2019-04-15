@@ -42,18 +42,18 @@ class FavoritesController extends Controller
         $cookies = Yii::$app->request->cookies;
         $searchModel = new FavoritesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        if ($cookies->has('fav')) {
-            $cookiearray = $cookies->getValue('prod_id');
-            $cookie = unserialize($cookiearray);
-
-            if ($cookie) {
-                foreach ($cookie as $id) {
-                    $query->orWhere(['id' => $id]);
-                }
-                $query->asArray()->all();
-            }
-
-        }
+//        if ($cookies->has('fav')) {
+//            $cookiearray = $cookies->getValue('prod_id');
+//            $cookie = unserialize($cookiearray);
+//
+//            if ($cookie) {
+//                foreach ($cookie as $id) {
+//                    $query->orWhere(['id' => $id]);
+//                }
+//                $query->asArray()->all();
+//            }
+//
+//        }
         $favorites = Favorites::find()->with(['prod' => function ($favorites) {
             $favorites->with(['cat', 'brand']);
         }])->where(['user_id' => Yii::$app->user->id])->asArray()->all();
@@ -89,9 +89,7 @@ class FavoritesController extends Controller
         $cart->prod_id = $id;
         $cart->user_id = $user_id;
         $cart->qty = 1;
-        if ($cart->save()) {
-            $del = Favorites::find()->where(['user_id' => $user_id])->andWhere(['prod_id' => $id])->one()->delete();
-        }
+
         return $this->redirect(Url::to('@web') . '/cart');
     }
 
@@ -103,16 +101,16 @@ class FavoritesController extends Controller
     public
     function actionCreate($id)
     {
-        if (Yii::$app->user->isGuest) {
-            $cookies = Yii::$app->response->cookies;
-
-            $cookie = $id;
-
-            $cookies->add(new \yii\web\Cookie([
-                'name' => 'prod_id',
-                'value' => "$id",
-            ]));
-        }
+//        if (Yii::$app->user->isGuest) {
+//            $cookies = Yii::$app->response->cookies;
+//
+//            $cookie = $id;
+//
+//            $cookies->add(new \yii\web\Cookie([
+//                'name' => 'prod_id',
+//                'value' => "$id",
+//            ]));
+//        }
         $model = new Favorites();
         $model->user_id = Yii::$app->user->id;
         $model->prod_id = intval($id);
@@ -123,17 +121,15 @@ class FavoritesController extends Controller
 
         $x = Favorites::find()->where(['user_id' => Yii::$app->user->id])->andWhere(['prod_id' => $id])->asArray()->one();
 
-        if (!empty($x)) {
-            ///////////////////////////////////////////////////////////dont work
+        if (empty($x)) {
             $model->save(false);
             $model = new Favorites();
-        }else {
+        }
             $prods = Favorites::find()->where(['user_id' => Yii::$app->user->id])->asArray()->all();
 
             return $this->render('index', ['prods' => $prods,
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,]);
-        }
     }
 
 
@@ -168,8 +164,7 @@ class FavoritesController extends Controller
     public
     function actionDelete($id)
     {
-        $del_item = Favorites::find()->where(['prod_id' => $id])->andWhere(['user_id' => Yii::$app->user->id])->one();
-        $del_item->delete();
+        $del_item = Favorites::find()->where(['id' => intval($id)])->andWhere(['user_id' => Yii::$app->user->id])->one();
 
         return $this->redirect(['index']);
     }

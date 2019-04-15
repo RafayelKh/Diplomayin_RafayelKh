@@ -18,7 +18,7 @@
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search..."/>
-              <span class="input-group-btn">
+                <span class="input-group-btn">
                 <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
@@ -28,17 +28,42 @@
 
         <?= dmstr\widgets\Menu::widget(
             [
-                'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
+                'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
                 'items' => [
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
-                    ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
-                    ['label' => 'Products', 'icon' => 'file-code-o', 'url' => ['/product']],
-                    ['label' => 'Users', 'icon' => 'file-code-o', 'url' => ['/user']],
-                    ['label' => 'Coupon Control', 'icon' => 'file-code-o', 'url' => ['/coupon']],
-                    ['label' => 'Brand', 'icon' => 'file-code-o', 'url' => ['/brand']],
-                    ['label' => 'Categories', 'icon' => 'file-code-o', 'url' => ['/categories']],
-                    ['label' => 'Articles', 'icon' => 'file-code-o', 'url' => ['/article']],
-                    ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
+                    [
+                        'label' => 'Commerce',
+                        'icon' => 'fas fa-shopping-bag',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Products', 'icon' => 'file-code-o', 'url' => ['/product']],
+                            ['label' => 'Brand', 'icon' => 'file-code-o', 'url' => ['/brand']],
+                            ['label' => 'Categories', 'icon' => 'file-code-o', 'url' => ['/categories']],
+                            ['label' => 'Orders', 'icon' => 'file-code-o', 'url' => ['/order']],
+                            ['label' => 'Coupon Control', 'icon' => 'file-code-o', 'url' => ['/coupon']],
+                        ]
+                    ],
+                    [
+                        'label' => 'Community',
+                        'icon' => 'share',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Users', 'icon' => 'fas fa-user', 'url' => ['/user']],
+                            ['label' => 'Messages', 'icon' => 'fas fa-envelope', 'url' => ['/contact']],
+                            ['label' => 'Articles', 'icon' => 'fas fa-newspaper-o', 'url' => ['/article']],
+                        ]
+                    ],
+                    [
+                        'label' => 'Tools',
+                        'icon' => 'circle-o',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
+                            ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
+                        ]
+                    ],
+
+
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                 ],
             ]

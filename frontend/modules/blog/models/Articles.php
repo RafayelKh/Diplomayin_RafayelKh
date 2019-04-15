@@ -11,7 +11,7 @@ use Yii;
  * @property string $title
  * @property string $content
  * @property string $created_at
- * @property string $photo
+ * @property string $image
  *
  * @property Comments[] $comments
  */
@@ -35,7 +35,7 @@ class Articles extends \yii\db\ActiveRecord
             [['content'], 'string'],
             [['created_at'], 'safe'],
             [['title'], 'string', 'max' => 255],
-            [['photo'], 'string', 'max' => 120],
+            [['image'], 'string', 'max' => 120],
         ];
     }
 
@@ -49,7 +49,7 @@ class Articles extends \yii\db\ActiveRecord
             'title' => 'Title',
             'content' => 'Content',
             'created_at' => 'Created At',
-            'photo' => 'Photo',
+            'image' => 'Image',
         ];
     }
 
@@ -60,5 +60,4 @@ class Articles extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Comments::className(), ['article_id' => 'id']);
     }
-
 }

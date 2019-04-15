@@ -1,6 +1,6 @@
 <?php
 // echo "<pre>";
-// var_dump($prod_qty);
+// var_dump($prods);
 // die;
 ?>
 <div class="site-section">
@@ -42,7 +42,8 @@
 
                                     </td>
                                     <td class="product-name">
-                                        <h2 class="mystyle text-black"><?= $row['prod']['title'] ?></h2>
+                                        <a href="<?= \yii\helpers\Url::to('@web') ?>/shop/prod/<?= $row['prod']['id'] ?>"><h2 class="mystyle text-black"><?= $row['prod']['title'] ?></h2></a>
+
                                     </td>
                                     <td>
                                         <?php if (!empty($row['prod']['sale_price'])) { ?>
@@ -55,10 +56,17 @@
                                         <div class="input-group mb-3" style="max-width: 120px;">
                                             <?php $count = \yii\widgets\ActiveForm::begin(); ?>
                                                <?= $count->field($qty, 'qty')->textInput(['value' => $row['qty']]) ?>
+                                               <?= $count->field($qty, 'prod_id')->hiddenInput(['value' => $row['prod_id']])->label(''); ?>
                                             <?php \yii\widgets\ActiveForm::end(); ?>
                                         </div>
                                     </td>
-                                    <td><h2>$<?= $row['prod']['price'] * $row['qty'] ?></h2></td>
+                                    <td>
+                                        <?php if (!empty($row['prod']['sale_price'])) { ?>
+                                            <h2>$<?= $row['prod']['sale_price'] * $row['qty'] ?></h2>
+                                        <?php } else { ?>
+                                            <h2>$<?= $row['prod']['price'] * $row['qty'] ?></h2>
+                                        <?php } ?>
+                                    </td>
                                     <td>
                                         <a href="<?= \yii\helpers\Url::to('@web') ?>/cart/remove/<?= $row['prod']['id'] ?>"
                                            id="remove_item" class="btn btn-primary btn-sm">X</a></td>

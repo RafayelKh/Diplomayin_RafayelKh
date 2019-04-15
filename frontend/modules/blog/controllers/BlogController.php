@@ -20,7 +20,7 @@ class BlogController extends Controller
 
     public function actionIndex()
     {
-        $articles = Articles::find();
+        $articles = Articles::find()->orderBy(['created_at' => SORT_DESC]);
         $pagination = new Pagination(['totalCount' => $articles->count(), 'pageSize' => 3]);
 
         $articles = $articles->offset($pagination->offset)->limit($pagination->limit);
@@ -38,13 +38,9 @@ class BlogController extends Controller
         $model = new Comments();
 
         $model->user_id = Yii::$app->user->id;
-        $model->article_id = $id;
-//        $model->message = Yii::$app->request->post('message');
-//
-//        var_dump($model);
-//        die;
-
+        $model->article_id = intval($id);
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
             if ($model->save()) {
                 $model = new Comments();
             }

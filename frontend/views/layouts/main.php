@@ -39,7 +39,8 @@ Yii::$app->language = 'en'
                         <form action="<?= \yii\helpers\Url::to('@web') ?>/shop" class="site-block-top-search">
                             <span class="icon icon-search2"></span>
                             <form action="<?= \yii\helpers\Url::to('@web') ?>/shop">
-                                <input type="text" name="s" class="form-control custom-form border-0" placeholder="Search">
+                                <input type="text" name="s" class="form-control custom-form border-0"
+                                       placeholder="Search">
                                 <button class="btn btn-sm btn-primary">></button>
                             </form>
                         </form>
@@ -60,19 +61,20 @@ Yii::$app->language = 'en'
                                                 class="fas fa-heart icon"></i></a></li>
                                 <li>
                                     <?php if (!Yii::$app->user->isGuest) { ?>
-                                        <a href="<?= \yii\helpers\Url::to('@web') ?>/cart" class="site-cart">
+                                    <a href="<?= \yii\helpers\Url::to('@web') ?>/cart" class="site-cart">
                                         <span class="icon-shopping_cart">
                                             <i class="fas fa-shopping-cart icon"></i>
                                         </span>
-                                        </a>
+                                    </a>
                                 </li>
                                 <li>
-                                        <a href="<?= \yii\helpers\Url::to('@web') ?>/user" class="site-cart">
+                                    <a href="<?= \yii\helpers\Url::to('@web') ?>/user" class="site-cart">
                                         <span class=" icon-shopping_cart">
-                                            <i class="fas fa-user icon"></i>
+<!--                                            <i class="fas fa-user icon"></i>-->
                                         </span>
-                                        </a>
+                                    </a>
                                     <?php } ?>
+                                </li>
 
                                 <li class="d-inline-block d-md-none ml-md-0"><a href="#"
                                                                                 class="site-menu-toggle js-menu-toggle"><span
@@ -140,7 +142,10 @@ Yii::$app->language = 'en'
                             </li>
                             <li><a href="<?= \yii\helpers\Url::to('@web') ?>/shop"><?= Yii::t('app', 'featured') ?></a>
                             </li>
-                            <li><a href="<?= \yii\helpers\Url::to('@web') ?>/cart"><?= Yii::t('app', 'cart') ?></a></li>
+                            <?php if (!Yii::$app->user->isGuest) { ?>
+                                <li><a href="<?= \yii\helpers\Url::to('@web') ?>/cart"><?= Yii::t('app', 'cart') ?></a>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </div>
                     <div class="col-md-6 col-lg-4">
@@ -176,17 +181,6 @@ Yii::$app->language = 'en'
                         <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
                         <li class="email">emailaddress@domain.com</li>
                     </ul>
-                </div>
-
-                <div class="block-7">
-                    <form action="#" method="post">
-                        <label for="email_subscribe" class="footer-heading">Subscribe</label>
-                        <div class="form-group">
-                            <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
-                            <input type="submit" style="height: 43px;margin-top: 20px;" class="btn btn-sm btn-primary"
-                                   value="Send">
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

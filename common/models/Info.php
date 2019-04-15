@@ -28,7 +28,7 @@ class Info extends \yii\db\ActiveRecord
     {
         return [
             [['type', 'content'], 'required'],
-            [['type', 'content'], 'string', 'max' => 255],
+            [['type', 'content'], 'string'],
         ];
     }
 

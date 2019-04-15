@@ -26,26 +26,18 @@ class CartController extends Controller
             return $this->redirect(Url::to('@web'));
         }
         $user_id = Yii::$app->user->id;
-
         if (!empty($remove_id)) {
             $remove_item = Cart::find()->where(['prod_id' => $remove_id])->andWhere(['user_id' => Yii::$app->user->id])->one();
             $remove_item->delete();
         }
-
-        $cart_qty = Cart::find()->where(['user_id' => Yii::$app->user->id])->andWhere(['prod_id' => $id])->one();
-
         if (!Yii::$app->user->isGuest) {
             $id = intval($id);
-
-            if (!empty($cart_qty)) {
-                $cart_qty['qty'] = $cart_qty['qty'] + 1;
-                $cart_qty->update();
-            }else{
-                $cart = new Cart();
-                $cart->prod_id = $id;
-                $cart->user_id = $user_id;
-                if($cart->load(Yii::$app->request->post())){
-                    var_dump($cart);
+            $cart = new Cart();
+            $cart->prod_id = $id;
+            $cart->user_id = $user_id;
+            if ($cart->load(Yii::$app->request->post())) {
+                if (!$cart->update()) {
+                    $cart->qty = 1;
                     $cart->save();
                 }
             }
@@ -54,7 +46,6 @@ class CartController extends Controller
             if (empty($prods)) {
                 return $this->render('index', ['mes' => 'Cart is empty']);
             };
-
             $all_price = 0;
             foreach ($prods as $item) {
                 if ($item['prod']['sale_price']) {
@@ -66,7 +57,17 @@ class CartController extends Controller
             $cartQty = Cart::find()->where(['user_id' => Yii::$app->user->id])->asArray()->all();
             $qty = new Cart();
 
-            return $this->render('index', ['prods' => $prods,'prod_qty' => $cartQty,'qty' => $qty,'all_price' => $all_price]);
+            if ($qty->load(Yii::$app->request->post())) {
+                $cartQty = new Cart();
+
+                $cartQty->prod_id = $id;
+                $cartQty->user_id = $user_id;
+                $cartQty->qty = intval($qty->qty);
+
+                $cartQty->save();
+            }
+
+            return $this->render('index', ['prods' => $prods, 'prod_qty' => $cartQty, 'qty' => $qty, 'all_price' => $all_price]);
         }
         return $this->render('index', ['mes' => 'Cart is empty']);
     }
@@ -77,7 +78,7 @@ class CartController extends Controller
         $model = new CouponCodes();
         $modelInp = new OrderList();
         $full = '';
-        $mes = 0;
+        $mes = '';
 
         if (empty($prods)) {
             $this->redirect(Url::to('@web'));
@@ -111,6 +112,7 @@ class CartController extends Controller
             $subprice = $all_price * $coupon / 100;
         }
         $all_price = $all_price - $subprice;
+
 
         $modelInp->user_id = Yii::$app->user->id;
         if (!empty($prods)) {

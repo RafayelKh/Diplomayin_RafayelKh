@@ -11,7 +11,7 @@ body {
 }
 
 .wrap > .container {
-    padding: 0;
+    padding: 15px;
 }
 .favorites-index{
     padding: 25px;

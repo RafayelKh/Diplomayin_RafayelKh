@@ -70,6 +70,17 @@
                     <?= $formInp->field($modelInp, 'message')->textarea(['rows' => 7]) ?>
                 </div>
 
+                <?php
+                $output_price = 0;
+                if ($all_price == $subtotal){
+                    $output_price = $subtotal;
+                }else{
+                    $output_price = $all_price;
+                }
+                ?>
+
+                <?= $formInp->field($modelInp, 'price')->hiddenInput(['value' => $output_price])->label('') ?>
+
                 <div class="form-group ">
                     <?= \yii\helpers\Html::submitButton('Send Order', ['class' => 'btn btn-primary btn-lg py-3 btn-block custom-btn']) ?>
                 </div>

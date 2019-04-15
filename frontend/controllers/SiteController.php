@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use app\models\Cart;
+use common\models\Contact;
 use common\models\Newsletter;
 use Yii;
 use yii\base\InvalidArgumentException;
@@ -143,8 +144,11 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        $model = new ContactForm();
+        $model = new Contact();
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $model->save();
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
                 Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
             } else {

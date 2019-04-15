@@ -8,6 +8,7 @@ use backend\models\ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ArticleController implements the CRUD actions for Articles model.
@@ -65,9 +66,44 @@ class ArticleController extends Controller
     public function actionCreate()
     {
         $model = new Articles();
+        $prod_img = $model->image;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $imgFile = UploadedFile::getInstance($model, "image");
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            if ($model->load(Yii::$app->request->post())) {
+                $model->image = $prod_img;
+
+                if ($model->save()) {
+                    $imgPath = Yii::getAlias('@frontend') . '/web/images/articles/';
+
+                    $result = $this->addImage($imgFile, $imgPath, $model);
+
+                    if ($result) {
+                        if (!empty($prod_img)) {
+                            if (file_exists($imgPath . $prod_img)) {
+                                unlink($imgPath . $prod_img);
+                            }
+                        }
+
+                    } else {
+                        $transaction->rollBack();
+                    }
+
+                    if ($transaction->isActive) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+
+                } else {
+                    $transaction->rollBack();
+                    print_r($model->errors);
+                }
+            }
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            print_r($e->getMessage());
         }
 
         return $this->render('create', [
@@ -84,10 +120,45 @@ class ArticleController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = new Articles();
+        $prod_img = $model->image;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $imgFile = UploadedFile::getInstance($model, "image");
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            if ($model->load(Yii::$app->request->post())) {
+                $model->image = $prod_img;
+
+                if ($model->save()) {
+                    $imgPath = Yii::getAlias('@frontend') . '/web/images/articles/';
+
+                    $result = $this->addImage($imgFile, $imgPath, $model);
+
+                    if ($result) {
+                        if (!empty($prod_img)) {
+                            if (file_exists($imgPath . $prod_img)) {
+                                unlink($imgPath . $prod_img);
+                            }
+                        }
+
+                    } else {
+                        $transaction->rollBack();
+                    }
+
+                    if ($transaction->isActive) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+
+                } else {
+                    $transaction->rollBack();
+                    print_r($model->errors);
+                }
+            }
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            print_r($e->getMessage());
         }
 
         return $this->render('update', [
@@ -123,5 +194,20 @@ class ArticleController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    private function addImage($imgFile, $imgPath, $model)
+    {
+        $image_name = Yii::$app->security->generateRandomString() . '.' . $imgFile->extension;
+
+        $path = $imgPath . $image_name;
+        echo $path;
+        if ($imgFile->saveAs($path)) {
+            $model->image = $image_name;
+            $model->save(false);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

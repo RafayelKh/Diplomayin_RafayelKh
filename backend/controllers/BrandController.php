@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\behaviors\SluggableBehavior;
 
 /**
  * BrandController implements the CRUD actions for Brand model.
@@ -29,6 +30,11 @@ class BrandController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'title',
+                // 'slugAttribute' => 'slug',
+            ]
         ];
     }
 

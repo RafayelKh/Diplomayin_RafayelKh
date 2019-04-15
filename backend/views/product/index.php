@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\ProductSearch */
@@ -25,20 +26,34 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            [
+                'attribute' => 'Image',
+                'format' => 'raw',
+                'value' => function ($product) {
+
+                    if (!empty($product['image'])){
+                        return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/products/' . $product['image']), ['width' => '80px']);
+                    }else{
+                        return Html::img(Url::to('/Diplomayin_RafayelKh/frontend/web/images/default.jpg'), ['width' => '80px']);
+                    }
+
+                }
+            ],
             'id',
             'title',
 //            'description:ntext',
 //            'slug',
-            [
-                'attribute' => 'Category',
-                'value' => function ($cat) {
-                    return $cat['cat']['title'];
-                }
-            ],
+
             [
                 'attribute' => 'Brand',
                 'value' => function ($cat) {
                     return $cat['brand']['title'];
+                }
+            ],
+            [
+                'attribute' => 'Category',
+                'value' => function ($cat) {
+                    return $cat['cat']['title'];
                 }
             ],
             //'price',
@@ -46,9 +61,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'is_new',
             //'is_featured',
             'stock',
+            'date_upload',
             //'parent_id',
             //'options:ntext',
-            //'image',
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -13,6 +13,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\behaviors\SluggableBehavior;
 
 /**
  * ProductController implements the CRUD actions for Products model.
@@ -31,6 +32,11 @@ class ProductController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'title',
+                // 'slugAttribute' => 'slug',
+            ]
         ];
     }
 
@@ -77,14 +83,14 @@ class ProductController extends Controller
         $categories = Categories::find()->asArray()->all();
         $brands = Brand::find()->asArray()->all();
 
-        $categories_ids = ArrayHelper::map($categories,'id','title');
-        $brands_ids = ArrayHelper::map($brands,'id','title');
+        $categories_ids = ArrayHelper::map($categories, 'id', 'title');
+        $brands_ids = ArrayHelper::map($brands, 'id', 'title');
 
         $imgFile = UploadedFile::getInstances($model, "image");
 
         $transaction = Yii::$app->db->beginTransaction();
 
-        try{
+        try {
             if ($model->load(Yii::$app->request->post())) {
                 $model->image = "";
 
@@ -117,7 +123,7 @@ class ProductController extends Controller
                         }
                     }
 
-                    if($transaction->isActive){
+                    if ($transaction->isActive) {
                         $transaction->commit();
                     }
 
@@ -126,11 +132,11 @@ class ProductController extends Controller
                     $transaction->rollBack();
                     print_r($model->errors);
                 }
-            }else {
+            } else {
                 $transaction->rollBack();
                 echo "cant load";
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             $transaction->rollBack();
             echo $e->getMessage();
         }
@@ -155,15 +161,15 @@ class ProductController extends Controller
         $categories = Categories::find()->asArray()->all();
         $brands = Brand::find()->asArray()->all();
 
-        $categories_ids = ArrayHelper::map($categories,'id','title');
-        $brands_ids = ArrayHelper::map($brands,'id','title');
+        $categories_ids = ArrayHelper::map($categories, 'id', 'title');
+        $brands_ids = ArrayHelper::map($brands, 'id', 'title');
         $prod_img = $model->image;
 
         $imgFile = UploadedFile::getInstances($model, "image");
 
         $transaction = Yii::$app->db->beginTransaction();
 
-        try{
+        try {
             if ($model->load(Yii::$app->request->post())) {
                 $model->image = $prod_img;
 
@@ -208,7 +214,7 @@ class ProductController extends Controller
                         $model->save(false);
                     }
 
-                    if($transaction->isActive){
+                    if ($transaction->isActive) {
                         $transaction->commit();
                     }
 
@@ -218,7 +224,7 @@ class ProductController extends Controller
 
                 }
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             $transaction->rollBack();
             print_r($e->getMessage());
         }
@@ -230,15 +236,16 @@ class ProductController extends Controller
         ]);
     }
 
-    private function addImage($imgFile,$imgPath,$model){
-        $image_name = Yii::$app->security->generateRandomString(). '.' . $imgFile->extension;
+    private function addImage($imgFile, $imgPath, $model)
+    {
+        $image_name = Yii::$app->security->generateRandomString() . '.' . $imgFile->extension;
 
         $path = $imgPath . $image_name;
-        if($imgFile->saveAs($path)){
+        if ($imgFile->saveAs($path)) {
             $model->image = $image_name;
             $model->save(false);
             return true;
-        }else{
+        } else {
             return false;
         }
     }

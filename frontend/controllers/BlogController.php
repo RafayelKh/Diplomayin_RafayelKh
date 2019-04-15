@@ -19,7 +19,7 @@ class BlogController extends Controller
 
     public function actionIndex()
     {
-        $info = Articles::find()->asArray()->all();
+        $info = Articles::find()->orderBy(['created_at' => SORT_DESC])->asArray()->all();
 
 
         return $this->render('index',['info' => $info]);

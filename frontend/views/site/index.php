@@ -100,10 +100,10 @@ Yii::$app->language = 'en'
                         foreach ($prods as $item) {
                             ?>
                             <div class="item">
-                                <div class="block-4 text-center">
-                                    <figure class="block-4-image">
+                                <div style="height: 477px" class="block-4 text-center">
+                                    <figure style="height: 335px" class="block-4-image">
                                         <?php if (!empty($item['image'])) { ?>
-                                            <img src="<?= \yii\helpers\Url::to('@web') ?>/images/products/<?= $item['image'] ?>"
+                                            <img style="margin-left: 15px" src="<?= \yii\helpers\Url::to('@web') ?>/images/products/<?= $item['image'] ?>"
                                                  alt="Image" class="img-fluid">
                                         <?php } else { ?>
                                             <img src="<?= \yii\helpers\Url::to('@web') ?>/images/default.jpg"
@@ -112,7 +112,7 @@ Yii::$app->language = 'en'
                                     </figure>
                                     <div class="block-4-text p-4">
                                         <h3>
-                                            <a href="<?= \yii\helpers\Url::to('@web') ?>/shop/<?= $item['id'] ?>"><?= $item['title'] ?></a>
+                                            <a href="<?= \yii\helpers\Url::to('@web') ?>/shop/prod/<?= $item['slug'] ?>"><?= $item['title'] ?></a>
                                         </h3>
                                         <h5 class="mb-0"><?= $item['description'] ?></h5>
                                         <?php
@@ -165,7 +165,7 @@ Yii::$app->language = 'en'
         </div>
         <div class="row align-items-center">
             <div class="col-md-12 col-lg-7 mb-5">
-                <a href="#"><img src="images/blog_1.jpg" alt="Image placeholder" class="img-fluid rounded"></a>
+                <a href="#"><img src="<?= \yii\helpers\Url::to('@web') ?>/images/blog_1.jpg" alt="Image placeholder" class="img-fluid rounded"></a>
             </div>
             <div class="col-md-12 col-lg-5 text-center pl-md-5">
                 <h2><a href="#"><?= Yii::t('app', 'big_discounts') ?></a></h2>
